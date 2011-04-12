@@ -11,10 +11,10 @@ hibernate {
 }
 // environment specific settings
 environments {
-	/*development {
+	/*test{
 		dataSource {
 			driverClassName = "com.mysql.jdbc.Driver"
-			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+			dbCreate = "create" // one of 'create', 'create-drop','update'
 			username = "mallocUsr"
 			password = "mallocPsswd"
 			url = "jdbc:mysql://localhost:3306/malloc"
@@ -26,16 +26,20 @@ environments {
 			url = "jdbc:hsqldb:mem:develDb"
 		}
 	}
+	
 	test {
 		dataSource {
-			dbCreate = "update"
+			dbCreate = "create-drop"
 			url = "jdbc:hsqldb:mem:testDb"
 		}
 	}
 	production {
 		dataSource {
-			dbCreate = "update"
-			url = "jdbc:hsqldb:file:prodDb;shutdown=true"
+			driverClassName = "com.mysql.jdbc.Driver"
+			dbCreate = "update" // one of 'create', 'create-drop','update'
+			username = "mallocUsr"
+			password = "mallocPsswd"
+			url = "jdbc:mysql://localhost:3306/malloc"			
 		}
 	}
 }

@@ -3,7 +3,7 @@ package malloc
 class Department {
 
 	static constraints = {
-		name(blank:false)
+		name(blank:false,unique:true)
 		description(blank:true)
 		teamLeader(nullable:true)
 	}
@@ -11,5 +11,5 @@ class Department {
 	String name
 	String description
 	User teamLeader
-	static hasMany = [members:User]	
+	static hasMany = [members:User]
 }

@@ -49,12 +49,12 @@ grails.logging.jul.usebridge = true
 grails.spring.bean.packages = []
 
 // request parameters to mask when logging exceptions
-grails.exceptionresolver.params.exclude = ['password']
+grails.exceptionresolver.params.exclude = ['password', 'passwd']
 
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://www.mawek.cz:8080/malloc"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
