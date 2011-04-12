@@ -13,12 +13,13 @@ class User {
 		approvals(nullable:true)
 	}
 
+	static hasMany = [allocations:Allocation, requests:Allocation, approvals:Allocation]
+	static mappedBy = [allocations:'worker', requests:'requester', approvals:'approver']
 
 	String name
 	String surname
 	String code
 	String email
 	Department department
-	static hasMany = [allocations:Allocation, requests:Allocation, approvals:Allocation]
-	static mappedBy = [allocations:'worker', requests:'requester', approvals:'approver']
+	String photoPath
 }
