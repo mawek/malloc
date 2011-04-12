@@ -4,14 +4,11 @@ class UserController {
 
 	def scaffold = User
 
-	def login = {
-	}
-
 	def handleLogin = {
 		def user = User.findByCode(params.code)
 		if(!user){
 			flash.message = "User for code '${params.code}' not found."
-			redirect(action: 'login')
+			return
 		}
 
 		session.user = user
@@ -20,6 +17,6 @@ class UserController {
 
 	def logout = {
 		session.user = null
-		redirect(action: 'login')
+		redirect(controller: 'user')
 	}
 }

@@ -23,8 +23,8 @@
 			</h1>
 		</div>
 
-		<div id="content">
-			<g:layoutBody />
+		<div id="content">		
+			<g:layoutBody />			
 		</div>
 
 		<div id="sidebar">
