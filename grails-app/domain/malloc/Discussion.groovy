@@ -15,7 +15,7 @@ class Discussion {
 		user(nullable:false)
 		allocatioNStatus(nullable:true)
 	}
-	
+
 	static belongsTo = Allocation
 	static hasMany = [discussion:Discussion]
 	Discussion parent
@@ -25,5 +25,4 @@ class Discussion {
 	DateTime date
 	AllocationStatus allocationStatus
 	Allocation allocation
-	
 }

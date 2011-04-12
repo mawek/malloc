@@ -10,8 +10,8 @@ class DepartmentIntegrationTests extends GroovyTestCase {
 
 
 	void testPersist() {
-		new Department(name:"apd", description:"apd desc").save()
-		new Department(name:"had", description:"had desc").save()
+		new Department(code:"apd", name:"application development", description:"apd desc").save()
+		new Department(code:"had", description:"had desc").save()
 
 		assert 2 == Department.count()
 	}

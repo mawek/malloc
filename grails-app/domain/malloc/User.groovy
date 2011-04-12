@@ -23,4 +23,9 @@ class User {
 	String email
 	Department department
 	String photoPath
+
+	@Override
+	public String toString(){
+		"$code - $name $surname"
+	}
 }

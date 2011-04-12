@@ -1,0 +1,1 @@
+<span class="copyright">&copy; 2011 malloc</br> Marek Gerhart </span>
