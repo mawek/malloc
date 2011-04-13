@@ -42,7 +42,7 @@
                         
                             <td>${fieldValue(bean: userInstance, field: "surname")}</td>
                         
-                            <td>${fieldValue(bean: userInstance, field: "email")}</td>
+                            <td><a href="mailto:${fieldValue(bean: userInstance, field: "email")}">${fieldValue(bean: userInstance, field: "email")}</a></td>
                         
                             <td>${fieldValue(bean: userInstance, field: "department")}</td>
                         

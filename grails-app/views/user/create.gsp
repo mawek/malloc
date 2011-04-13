@@ -23,7 +23,7 @@
                 <g:renderErrors bean="${userInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="save" >
+            <g:form action="save"  enctype="multipart/form-data">
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -76,21 +76,12 @@
 
 							<tr class='prop'>
 								<td valign='top' class='name'>
-									<label for='photo'>Photo:</label>
+									<label for='photoFile'>Photo:</label>
 								</td>
 								<td valign='top' class='value ${hasErrors(bean:userInstance,field:'photoPath','errors')}'>
-									<input type="file" name="photo" />
+									<input type="file" name="photoFile" />
 								</td>
-							</tr>
-
-							<tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="photoPath"><g:message code="user.photoPath.label" default="Photo Path" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'photoPath', 'errors')}">
-                                    <g:textField name="photoPath" value="${userInstance?.photoPath}" />
-                                </td>
-                            </tr>
+							</tr>							
                         
                         </tbody>
                     </table>
