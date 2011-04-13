@@ -3,8 +3,8 @@ package malloc
 class Department {
 
 	static constraints = {
-		name(blank:false)
 		code(blank:false,unique:true)
+		name(blank:false)
 		description(blank:true)
 		teamLeader(nullable:true)
 	}

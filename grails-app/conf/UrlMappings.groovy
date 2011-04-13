@@ -1,3 +1,6 @@
+/*
+ * Default controller: http://stackoverflow.com/questions/198936/best-practices-for-grails-index-page
+ * */
 class UrlMappings {
 
 	static mappings = {
@@ -7,7 +10,10 @@ class UrlMappings {
 			}
 		}
 
-		"/"(view:"/index")
+		"/"{
+			controller = "home"
+		}
+		
 		"500"(view:'/error')
 	}
 }

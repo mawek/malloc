@@ -1,5 +1,8 @@
 package malloc
 
+/**
+ * Redirec naspet po logine: http://stackoverflow.com/questions/1451314/how-to-redirect-to-the-last-visited-page-in-grails-app
+ * */
 class UserController {
 
 	def scaffold = User
@@ -12,11 +15,11 @@ class UserController {
 		}
 
 		session.user = user
-		redirect(controller: 'user')
+		redirect(url: request.getHeader('referer'))
 	}
 
 	def logout = {
 		session.user = null
-		redirect(controller: 'user')
+		redirect(controller: 'home')
 	}
 }

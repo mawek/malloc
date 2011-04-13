@@ -1,12 +1,12 @@
 html * {
 	margin: 0;
-	/*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
+	/*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */	
 }
 
 body {
 	background: #fff;
 	color: #333;
-	font: 11px verdana, arial, helvetica, sans-serif;
+	font: 11px verdana, arial, helvetica, sans-serif;	
 }
 
 a:link,a:visited {
@@ -28,9 +28,11 @@ a:hover {
 
 /* moje pridane */
 #page {
-	width: 800px;
+	width: 800px;	
 	text-align: justify;
 	margin: 0px auto;
+	background: #EEE;
+	border: 1px solid green;	
 }
 
 #topbar {
@@ -42,6 +44,7 @@ a:hover {
 #topbar #menu {
 	text-align: right;
 	font-size: 10px;
+	padding-right: 10px;
 }
 
 #header {
@@ -60,6 +63,8 @@ a:hover {
 	float: left;
 	margin-left: 20px;
 	width: 500px;
+	min-height: 700px;
+	margin-bottom: 10px;
 }
 
 #sidebar {
@@ -104,7 +109,7 @@ a:hover {
 #footer {
 	clear: both;
 	text-align: center;
-	padding: 3px;
+	padding: 3px;		
 	border-top: 1px solid #333;
 }
 
