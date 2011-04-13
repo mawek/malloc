@@ -21,12 +21,12 @@ class UserControllerIntegrationTests extends GroovyTestCase {
 	void testHandleLogin() {
 
 		userController.params.code = user.code
-		userController.request.setHeader("referer", "localhost")
+		userController.request.addHeader("referer", "localhost")
 		
 		userController.handleLogin()
 
-		assert session.user
-		assertEquals user, session.user
+		assert userController.session.user
+		assertEquals user, userController.session.user
 	}
 
 	void testLogout() {
@@ -34,6 +34,6 @@ class UserControllerIntegrationTests extends GroovyTestCase {
 
 		userController.logout()
 		assertNull("No user after logout in the session", userController.session.user)
-		assertEquals "/user/login", userController.response.redirectedUrl
+		assertEquals "/", userController.response.redirectedUrl
 	}
 }
