@@ -1,7 +1,7 @@
-<div id="menu">
+<div id="login_menu">
 	<nobr>
 		<g:if test="${session.user}">
-			<b> ${session.user?.code}&nbsp;-&nbsp;${session.user?.name}&nbsp;${session.user?.surname}&nbsp;|&nbsp;<g:link controller="user" action="logout">Logout</g:link>
+			<b> ${session.user?.code}&nbsp;-&nbsp;${session.user?.name}&nbsp;${session.user?.surname}&nbsp;|&nbsp;<g:link controller="user" action="logout"><g:message code="logout"/></g:link>
 			</b>
 		</g:if>
 		<g:else>

@@ -22,7 +22,11 @@
 				<a href="${createLinkTo(dir:'')}">Malloc</a>
 			</h1>
 		</div>
+		<div id="subHeader">
+			<g:render template="/common/subHeader" />
+		</div>
 
+		
 		<div id="content">		
 			<g:layoutBody />			
 		</div>
@@ -30,6 +34,7 @@
 		<div id="sidebar">
 			<g:render template="/common/sidebar" />
 		</div>
+		
 
 		<div id="footer">
 			<g:render template="/common/footer" />

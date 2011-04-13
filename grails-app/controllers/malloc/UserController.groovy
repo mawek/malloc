@@ -32,8 +32,10 @@ class UserController {
 			user.photoPath = file.originalFilename
 		}
 
-		user.save()
-
-		redirect(action:"show", params:["id":user.id])
+		if(user.save()){
+			redirect(action:"show", params:["id":user.id])
+		}else{
+			render(view: 'create', model:[user:user])
+		}
 	}
 }

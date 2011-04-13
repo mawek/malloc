@@ -20,8 +20,7 @@ class Allocation {
 		type(nullable:false)
 		requester(nullable:true)
 		when(nullable:false)
-		hours(size:3..3)
-
+		hours(blank:false, min:1, max:8)
 		worker(nullable:true)
 		approver(nullable:true)
 	}

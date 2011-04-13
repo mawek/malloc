@@ -51,7 +51,8 @@
                                     <label for="when"><g:message code="allocation.when.label" default="When" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: allocationInstance, field: 'when', 'errors')}">
-                                    
+                                <calendar:resources lang="en" theme="tiger"/>                                
+                                 <calendar:datePicker name="when"/>
                                 </td>
                             </tr>
                         

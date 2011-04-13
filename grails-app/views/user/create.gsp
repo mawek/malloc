@@ -18,9 +18,9 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${userInstance}">
+            <g:hasErrors bean="${user}">
             <div class="errors">
-                <g:renderErrors bean="${userInstance}" as="list" />
+                <g:renderErrors bean="${user}" as="list" />
             </div>
             </g:hasErrors>
             <g:form action="save"  enctype="multipart/form-data">
@@ -32,8 +32,8 @@
                                 <td valign="top" class="name">
                                     <label for="code"><g:message code="user.code.label" default="Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'code', 'errors')}">
-                                    <g:textField name="code" maxlength="3" value="${userInstance?.code}" />
+                                <td valign="top" class="value ${hasErrors(bean: user, field: 'code', 'errors')}">
+                                    <g:textField name="code" maxlength="3" value="${user?.code}" />
                                 </td>
                             </tr>
                         
@@ -41,8 +41,8 @@
                                 <td valign="top" class="name">
                                     <label for="name"><g:message code="user.name.label" default="Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'name', 'errors')}">
-                                    <g:textField name="name" value="${userInstance?.name}" />
+                                <td valign="top" class="value ${hasErrors(bean: user, field: 'name', 'errors')}">
+                                    <g:textField name="name" value="${user?.name}" />
                                 </td>
                             </tr>
                         
@@ -50,8 +50,8 @@
                                 <td valign="top" class="name">
                                     <label for="surname"><g:message code="user.surname.label" default="Surname" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'surname', 'errors')}">
-                                    <g:textField name="surname" value="${userInstance?.surname}" />
+                                <td valign="top" class="value ${hasErrors(bean: user, field: 'surname', 'errors')}">
+                                    <g:textField name="surname" value="${user?.surname}" />
                                 </td>
                             </tr>
                         
@@ -59,8 +59,8 @@
                                 <td valign="top" class="name">
                                     <label for="email"><g:message code="user.email.label" default="Email" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'email', 'errors')}">
-                                    <g:textField name="email" value="${userInstance?.email}" />
+                                <td valign="top" class="value ${hasErrors(bean: user, field: 'email', 'errors')}">
+                                    <g:textField name="email" value="${user?.email}" />
                                 </td>
                             </tr>
                         
@@ -68,8 +68,8 @@
                                 <td valign="top" class="name">
                                     <label for="department"><g:message code="user.department.label" default="Department" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'department', 'errors')}">
-                                    <g:select name="department.id" from="${malloc.Department.list()}" optionKey="id" value="${userInstance?.department?.id}" noSelection="['null': '']" />
+                                <td valign="top" class="value ${hasErrors(bean: user, field: 'department', 'errors')}">
+                                    <g:select name="department.id" from="${malloc.Department.list()}" optionKey="id" value="${user?.department?.id}" noSelection="['null': '']" />
                                 </td>
                             </tr>
 
@@ -78,7 +78,7 @@
 								<td valign='top' class='name'>
 									<label for='photoFile'>Photo:</label>
 								</td>
-								<td valign='top' class='value ${hasErrors(bean:userInstance,field:'photoPath','errors')}'>
+								<td valign='top' class='value ${hasErrors(bean:user,field:'photoPath','errors')}'>
 									<input type="file" name="photoFile" />
 								</td>
 							</tr>							
