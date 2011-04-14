@@ -50,6 +50,7 @@ class UserController {
 	def save = {
 
 		def user = User.get(params.id)
+		def create = false
 		if(user){
 			if (params.version) {
 				def version = params.version.toLong()
@@ -65,6 +66,7 @@ class UserController {
 			user.properties = params
 		}else{
 			user = new User(params)
+			create = true
 		}
 
 
@@ -76,7 +78,11 @@ class UserController {
 		}
 
 		if(!user.hasErrors() && user.save(flush: true)){
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), user.id])}"
+			if(create){
+				flash.message = "${message(code: 'user.created.message', args: [user.name, user.surname])}"
+			}else{
+				flash.message = "${message(code: 'user.updated.message', args:[user.name, user.surname])}"
+			}
 			redirect(action:"show", params:["id":user.id])
 		}else{
 			render(view: 'create', model:[user:user])

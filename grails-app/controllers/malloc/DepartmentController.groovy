@@ -13,7 +13,7 @@ class DepartmentController {
 
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		[departmentInstanceList: Department.list(params), departmentInstanceTotal: Department.count()]
+		[departmentList: Department.list(params), departmentTotal: Department.count()]
 	}
 
 	def create = {
@@ -58,13 +58,13 @@ class DepartmentController {
 	}
 
 	def show = {
-		def departmentInstance = Department.get(params.id)
-		if (!departmentInstance) {
+		def department = Department.get(params.id)
+		if (!department) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), params.id])}"
 			redirect(action: "list")
 		}
 		else {
-			[departmentInstance: departmentInstance]
+			[department: department]
 		}
 	}
 
