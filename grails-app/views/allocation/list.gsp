@@ -1,65 +1,100 @@
-
-<%@ page import="malloc.Allocation" %>
+<%@ page import="malloc.Allocation"%>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'allocation.label', default: 'Allocation')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                        
-                            <g:sortableColumn property="id" title="${message(code: 'allocation.id.label', default: 'Id')}" />
-                        
-                            <g:sortableColumn property="name" title="${message(code: 'allocation.name.label', default: 'Name')}" />
-                        
-                            <g:sortableColumn property="type" title="${message(code: 'allocation.type.label', default: 'Type')}" />
-                        
-                            <th><g:message code="allocation.requester.label" default="Requester" /></th>
-                        
-                            <g:sortableColumn property="when" title="${message(code: 'allocation.when.label', default: 'When')}" />
-                        
-                            <g:sortableColumn property="hours" title="${message(code: 'allocation.hours.label', default: 'Hours')}" />
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${allocationInstanceList}" status="i" var="allocationInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${allocationInstance.id}">${fieldValue(bean: allocationInstance, field: "id")}</g:link></td>
-                        
-                            <td>${fieldValue(bean: allocationInstance, field: "name")}</td>
-                        
-                            <td>${fieldValue(bean: allocationInstance, field: "type")}</td>
-                        
-                            <td>${fieldValue(bean: allocationInstance, field: "requester")}</td>
-                        
-                            <td>${fieldValue(bean: allocationInstance, field: "when")}</td>
-                        
-                            <td>${fieldValue(bean: allocationInstance, field: "hours")}</td>
-                        
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${allocationInstanceTotal}" />
-            </div>
-        </div>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="layout" content="main" />
+<title><g:message code="allocation.list.label" /></title>
+</head>
+<body>
+	<div class="nav">
+		<span class="menuButton"><g:link class="create" action="create">
+				<g:message code="allocation.new.label" />
+			</g:link> </span>
+	</div>
+	<div class="body">
+		<h1>
+			<g:message code="allocation.list.label" />
+		</h1>
+		<g:if test="${flash.message}">
+			<div class="message">
+				${flash.message}
+			</div>
+		</g:if>
+		<div class="list">
+			<table>
+				<thead>
+					<tr>						
+
+						<g:sortableColumn property="name" title="${message(code: 'allocation.name.label', default: 'Name')}" />
+
+						<g:sortableColumn property="type" title="${message(code: 'allocation.type.label', default: 'Type')}" />
+						
+						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
+
+						<th><g:message code="allocation.requester.label" default="Requester" /></th>
+						
+						<th><g:message code="allocation.worker.label" default="Worker" /></th>
+						
+						<th><g:message code="allocation.approver.label" default="Approver" /></th>
+
+						<g:sortableColumn property="when" title="${message(code: 'allocation.when.label', default: 'When')}" />						
+
+					</tr>
+				</thead>
+				<tbody>
+					<g:each in="${allocationList}" status="i" var="allocation">
+						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">							
+
+							<td>
+								<g:link action="show" id="${allocation.id}">
+								${fieldValue(bean: allocation, field: "name")}
+								</g:link>
+							</td>
+
+							<td>
+								${message(code: 'allocation.type.'+allocation?.type?.encodeAsHTML(), default: allocation?.type?.encodeAsHTML())}
+																
+							</td>
+							
+							<td>
+								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
+							</td>
+
+							<td>
+								<g:link action="show"  controller="user" id="${allocation.requester?.id}">
+									${allocation.requester?.code}
+								</g:link>
+							</td>
+
+							<td>
+								<g:link action="show"  controller="user" id="${allocation.worker?.id}">
+									${allocation.worker?.code}
+								</g:link>
+							</td>
+
+							<td>
+								<g:link action="show"  controller="user" id="${allocation.approver?.id}">
+									${allocation.approver?.code}
+								</g:link>	
+							</td>
+							<td>
+								<g:formatDate date="${allocation.when?.toDate()}" format="dd.MM.yyyy" /> 
+							</td>
+
+						</tr>
+					</g:each>
+				</tbody>
+			</table>
+		</div>
+		<div class="paginateButtons">
+			<g:paginate total="${allocationTotal}" />
+		</div>
+	</div>
+	<br/>
+	<div class="nav">
+		<span class="menuButton"><g:link class="create" action="create">
+				<g:message code="allocation.new.label" />
+			</g:link> </span>
+	</div>
+</body>
 </html>
