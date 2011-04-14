@@ -24,7 +24,7 @@ class AllocationController {
 	def my = {
 
 		def myAllocations = {
-			Allocation.createCriteria().list{
+			Allocation.createCriteria().list(sort:"when", order:"asc"){
 				and{
 					eq("worker",session.user)
 					'in'("status",[
@@ -36,34 +36,35 @@ class AllocationController {
 			}
 		}
 		def myRequests = {
-				Allocation.createCriteria().list{
-					and{
-						eq("requester",session.user)
-						'in'("status",[
-						               AllocationStatus.NEW,
-						               AllocationStatus.SPECIFY_REQUEST
-						               ])
-						               gt("when", new DateTime())
-					}
+			Allocation.createCriteria().list{
+				and{
+					eq("requester",session.user)
+					'in'("status",[
+						AllocationStatus.NEW,
+						AllocationStatus.SPECIFY_REQUEST
+					])
+					gt("when", new DateTime())
 				}
+				order("when", "asc")
+			}
 		}
 		def myApprovals = {
-				Allocation.createCriteria().list{
-					and{
-						eq("approver",session.user)
-						'in'("status",[
-						               AllocationStatus.NEW,
-						               AllocationStatus.SPECIFY_REQUEST
-						               ])
-						               gt("when", new DateTime())
-					}
+			Allocation.createCriteria().list{
+				and{
+					eq("approver",session.user)
+					'in'("status",[
+						AllocationStatus.NEW,
+						AllocationStatus.SPECIFY_REQUEST
+					])
+					gt("when", new DateTime())
 				}
+				order("when", "asc")
+			}
 		}
 
 
+		//		render(view:"my", model:[myAllocations: Allocation.findAllWhere(["worker":session.user, "status":AllocationStatus.NEW])]) //funguje ale len na anditka
 		render(view:"my", model:[myAllocations:myAllocations(), myRequests:myRequests(), myApprovals:myApprovals()]) //funguje
-		//		render(view:"my", model:[myAllocations: Allocation.findAllWhere(["worker":session.user, "status":AllocationStatus.NEW])]) //funguje
-		//		render(view:"my", model:[myAllocations: Allocation.list(myRequests), myApproves: Allocation.list(myApproves),myRequests: Allocations.list(myRequests)])
 	}
 
 	def create = {
