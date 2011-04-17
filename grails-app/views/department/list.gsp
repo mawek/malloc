@@ -49,7 +49,7 @@
 
 
 							<td>
-								${fieldValue(bean: department, field: "description")}
+								<g:shortly value='${fieldValue(bean: department, field: "description")}'/>
 							</td>
 
 							<td>

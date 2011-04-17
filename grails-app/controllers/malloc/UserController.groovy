@@ -39,7 +39,7 @@ class UserController {
 	def edit = {
 		def user = User.get(params.id)
 		if (!user) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+			flash.message = "${message(code: 'user.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -93,7 +93,7 @@ class UserController {
 	def show = {
 		def userInstance = User.get(params.id)
 		if (!userInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+			flash.message = "${message(code: 'user.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -102,20 +102,20 @@ class UserController {
 	}
 
 	def delete = {
-		def userInstance = User.get(params.id)
-		if (userInstance) {
+		def user = User.get(params.id)
+		if (user) {
 			try {
-				userInstance.delete(flush: true)
-				flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+				user.delete(flush: true)
+				flash.message = "${message(code: 'user.deleted.message', args: [user.name, user.surname])}"
 				redirect(action: "list")
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
-				redirect(action: "show", id: params.id)
+				flash.message = "${message(code: 'user.not.deleted.message', args: [user.name, user.surname])}"
+				redirect(action: "list")
 			}
 		}
 		else {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
+			flash.message = "${message(code: 'user.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 	}

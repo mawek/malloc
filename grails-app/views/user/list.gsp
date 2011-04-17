@@ -33,8 +33,8 @@
 
 						<g:sortableColumn property="email" title="${message(code: 'user.email.label', default: 'Email')}" />
 
-						<th><g:message code="user.department.label" default="Department" />
-						</th>
+						<th><g:message code="user.department.label" default="Department" />	</th>
+						<th></th>
 
 					</tr>
 				</thead>
@@ -60,6 +60,14 @@
 
 							<td>
 								${fieldValue(bean: user, field: "department")}
+							</td>
+							<td>								
+								<g:form>
+                    				<g:hiddenField name="id" value="${user?.id}" />
+                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    				
+                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                				</g:form>                				
 							</td>
 
 						</tr>
