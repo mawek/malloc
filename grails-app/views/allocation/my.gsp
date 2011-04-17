@@ -43,7 +43,7 @@
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.when.label', default: 'When')}" />
+						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />
 
 					</tr>
 				</thead>
@@ -116,7 +116,7 @@
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.when.label', default: 'When')}" />
+						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />
 
 					</tr>
 				</thead>
@@ -186,7 +186,7 @@
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.when.label', default: 'When')}" />
+						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />
 
 					</tr>
 				</thead>
