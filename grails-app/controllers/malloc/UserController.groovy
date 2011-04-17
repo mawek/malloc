@@ -2,7 +2,7 @@ package malloc
 
 class UserController {
 
-	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	static allowedMethods = [save: "POST", update: "POST", delete: "POST", handleLogin: "POST"]
 
 	def index = {
 		redirect(action: "list", params: params)
@@ -11,7 +11,7 @@ class UserController {
 	def handleLogin = {
 		def user = User.findByCode(params.code)
 		if(!user){
-			flash.message = "User for code '${params.code}' not found."
+			flash.login.message = "User for code '${params.code}' not found."
 			return
 		}
 

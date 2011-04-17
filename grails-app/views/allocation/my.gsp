@@ -43,7 +43,7 @@
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />
+						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />
 
 					</tr>
 				</thead>
@@ -74,7 +74,7 @@
 							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
 								</g:link></td>
-							<td><g:formatDate date="${allocation.when?.toDate()}" format="dd.MM.yyyy" /></td>
+							<td><g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /></td>
 
 						</tr>
 					</g:each>
@@ -116,7 +116,7 @@
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />
+						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />
 
 					</tr>
 				</thead>
@@ -147,7 +147,7 @@
 							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
 								</g:link></td>
-							<td><g:formatDate date="${allocation.when?.toDate()}" format="dd.MM.yyyy" /></td>
+							<td><g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /></td>
 
 						</tr>
 					</g:each>
@@ -186,7 +186,7 @@
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />
+						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />
 
 					</tr>
 				</thead>
@@ -217,7 +217,7 @@
 							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
 								</g:link></td>
-							<td><g:formatDate date="${allocation.when?.toDate()}" format="dd.MM.yyyy" /></td>
+							<td><g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /></td>
 
 						</tr>
 					</g:each>

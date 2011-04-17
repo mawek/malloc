@@ -59,7 +59,7 @@
 							</td>
 
 							<td>
-								${fieldValue(bean: user, field: "department")}
+							<g:shortly value='${fieldValue(bean: user, field: "department")}'/>								
 							</td>
 							<td>								
 								<g:form>

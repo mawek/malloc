@@ -24,14 +24,14 @@ class AllocationController {
 	def my = {
 
 		def myAllocations = {
-			Allocation.createCriteria().list(sort:"when", order:"asc"){
+			Allocation.createCriteria().list(sort:"date", order:"asc"){
 				and{
 					eq("worker",session.user)
 					'in'("status",[
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("when", new DateTime())
+					gt("date", new DateTime())
 				}
 			}
 		}
@@ -43,9 +43,9 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("when", new DateTime())
+					gt("date", new DateTime())
 				}
-				order("when", "asc")
+				order("date", "asc")
 			}
 		}
 		def myApprovals = {
@@ -56,9 +56,9 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("when", new DateTime())
+					gt("date", new DateTime())
 				}
-				order("when", "asc")
+				order("date", "asc")
 			}
 		}
 

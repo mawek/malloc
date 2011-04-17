@@ -59,9 +59,9 @@
 						</tr>
 
 						<tr class="prop">
-							<td valign="top" class="name"><label for="when"><g:message code="allocation.date.label" default="Date" /> </label></td>
-							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'when', 'errors')}"><calendar:resources lang="en 
-									theme="tiger" /> <calendar:datePicker name="when" value="${allocation.when?.toDate()}" dateFormat="%d.%m.%Y"
+							<td valign="top" class="name"><label for="date"><g:message code="allocation.date.label" default="Date" /> </label></td>
+							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'date', 'errors')}"><calendar:resources lang="en 
+									theme="tiger" /> <calendar:datePicker name="date" value="${allocation.date?.toDate()}" dateFormat="%d.%m.%Y"
 									defaultValue="${new Date()}" /></td>
 						</tr>
 

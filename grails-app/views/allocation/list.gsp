@@ -6,7 +6,7 @@
 <title><g:message code="allocation.list.label" /></title>
 </head>
 <body>
-	<div class="nav">
+	<div class="nav">	
 		<span class="menuButton"><g:link class="create" action="create">
 				<g:message code="allocation.new.label" />
 			</g:link> </span>
@@ -37,7 +37,7 @@
 						
 						<th><g:message code="allocation.approver.label" default="Approver" /></th>
 
-						<g:sortableColumn property="when" title="${message(code: 'allocation.date.label', default: 'Date')}" />						
+						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />						
 
 					</tr>
 				</thead>
@@ -78,7 +78,7 @@
 								</g:link>	
 							</td>
 							<td>
-								<g:formatDate date="${allocation.when?.toDate()}" format="dd.MM.yyyy" /> 
+								<g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /> 
 							</td>
 
 						</tr>

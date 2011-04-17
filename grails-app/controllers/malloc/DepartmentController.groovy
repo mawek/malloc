@@ -41,9 +41,9 @@ class DepartmentController {
 			department = new Department(params)
 		}
 
-		if (!department.hasErrors() && department.save(flush: true)) {
+		if (!department.hasErrors() && department.save()) {
 			department.members.each{ it.department = null }
-			department?.members.clear()
+			department?.members?.clear()
 			params.each {
 				if (it.key.startsWith("member")){
 					User.get((it.value) as Integer).department = department
@@ -51,7 +51,7 @@ class DepartmentController {
 			}
 
 			flash.message = "${message(code: 'default.created.message', args: [message(code: 'department.label', default: 'Department'), department.id])}"
-			redirect(action: "show", id: department.id)
+			redirect(action: "list", id: department.id)
 		} else {
 			render(view: "create", model: [department: department])
 		}

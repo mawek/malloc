@@ -9,9 +9,10 @@ class Allocation {
 
 	static mapping = {
 		columns {
-			when column: 'requestDate'
+			date column: 'requestDate'
 			type column: 'typeAlloc'
 		}
+		discussion sort:'date', order:'desc'
 	}
 
 
@@ -19,7 +20,7 @@ class Allocation {
 		name(blank:false)
 		type(nullable:false)
 		requester(nullable:true)
-		when(nullable:false)
+		date(nullable:false)
 		hours(blank:false, min:1, max:8)
 		worker(nullable:true)
 		approver(nullable:true)
@@ -37,6 +38,6 @@ class Allocation {
 	String link
 	AllocationType type
 	AllocationStatus status
-	DateTime when
+	DateTime date
 	int hours
 }

@@ -60,9 +60,9 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="when"><g:message code="allocation.when.label" default="When" /></label>
+                                  <label for="date"><g:message code="allocation.date.label" default="Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: allocationInstance, field: 'when', 'errors')}">
+                                <td valign="top" class="value ${hasErrors(bean: allocationInstance, field: 'date', 'errors')}">
                                     
                                 </td>
                             </tr>

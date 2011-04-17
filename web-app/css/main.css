@@ -76,7 +76,7 @@ a:hover {
 	float: left;
 	margin-left: 20px;
 	margin-bottom: 10px;
-	padding-top: 10px;	
+	padding-top: 10px;
 }
 
 #sidebar {
@@ -127,8 +127,9 @@ a:hover {
 
 h2 {
 	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	font-size: 1.2em;
+	font-size: 14px;
 }
 
 h1 {
@@ -156,8 +157,7 @@ select {
 }
 
 textarea {
-	width: 250px;
-	height: 150px;
+	width: 98%;
 	vertical-align: top;
 }
 
