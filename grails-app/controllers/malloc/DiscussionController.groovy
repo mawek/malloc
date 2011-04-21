@@ -15,7 +15,7 @@ class DiscussionController {
 	}
 
 	def save = {
-		def discussion = new Discussion(params.discussionId)
+		def discussion = new Discussion(params)
 		discussion.user = session.user
 		discussion.date = new DateTime()
 

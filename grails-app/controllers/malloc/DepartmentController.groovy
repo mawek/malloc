@@ -24,6 +24,7 @@ class DepartmentController {
 
 	def save = {
 		def department = Department.get(params.id)
+		def create = false
 		if (department) {
 			if (params.version) {
 				def version = params.version.toLong()
@@ -39,6 +40,7 @@ class DepartmentController {
 			department.properties = params
 		}else{
 			department = new Department(params)
+			create = true
 		}
 
 		if (!department.hasErrors() && department.save()) {
@@ -50,7 +52,11 @@ class DepartmentController {
 				}
 			}
 
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'department.label', default: 'Department'), department.id])}"
+			if(create){
+				flash.message = "${message(code: 'department.created.message', args: [department.code])}"				
+			}else{
+				flash.message = "${message(code: 'department.updated.message', args: [department.code])}"				
+			}
 			redirect(action: "list", id: department.id)
 		} else {
 			render(view: "create", model: [department: department])
@@ -60,7 +66,7 @@ class DepartmentController {
 	def show = {
 		def department = Department.get(params.id)
 		if (!department) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), params.id])}"
+			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"		
 			redirect(action: "list")
 		}
 		else {
@@ -71,7 +77,7 @@ class DepartmentController {
 	def edit = {
 		def departmentInstance = Department.get(params.id)
 		if (!departmentInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), params.id])}"
+			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"			
 			redirect(action: "list")
 		}
 		else {
@@ -86,16 +92,16 @@ class DepartmentController {
 		if (departmentInstance) {
 			try {
 				departmentInstance.delete(flush: true)
-				flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'department.label', default: 'Department'), params.id])}"
+				flash.message = "${message(code: 'department.deleted.message', args: [department.code])}"				
 				redirect(action: "list")
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'department.label', default: 'Department'), params.id])}"
+				flash.message = "${message(code: 'department.not.deleted.message', args: [department.code])}"
 				redirect(action: "show", id: params.id)
 			}
 		}
 		else {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'department.label', default: 'Department'), params.id])}"
+			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 	}

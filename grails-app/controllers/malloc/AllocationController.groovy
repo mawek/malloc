@@ -24,14 +24,14 @@ class AllocationController {
 	def my = {
 
 		def myAllocations = {
-			Allocation.createCriteria().list(sort:"date", order:"asc"){
+			Allocation.createCriteria().list(sort:"startDate", order:"asc"){
 				and{
 					eq("worker",session.user)
 					'in'("status",[
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("date", new DateTime())
+					gt("startDate", new DateTime())
 				}
 			}
 		}
@@ -43,9 +43,9 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("date", new DateTime())
+					gt("startDate", new DateTime())
 				}
-				order("date", "asc")
+				order("startDate", "asc")
 			}
 		}
 		def myApprovals = {
@@ -56,9 +56,9 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("date", new DateTime())
+					gt("startDate", new DateTime())
 				}
-				order("date", "asc")
+				order("startDate", "asc")
 			}
 		}
 
@@ -75,6 +75,7 @@ class AllocationController {
 
 	def save = {
 		def allocation = Allocation.get(params.id)
+		def created = false
 		if (allocation) {
 			if (params.version) {
 				def version = params.version.toLong()
@@ -87,13 +88,24 @@ class AllocationController {
 					return
 				}
 			}
+			allocation.properties = params
 		}else{
 			allocation = new Allocation(params)
 			allocation.requester = session.user
+			created = true
 		}
 
 		if (!allocation.hasErrors() && allocation.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'allocation.label', default: 'Allocation'), allocation.id])}"
+			if(created){
+				sendMail {
+					to allocation.requester?.email
+					subject "Hello to mutliple recipients"
+					body "Hello Fred! Hello Ginger!"
+				}
+				flash.message = "${message(code: 'allocation.created.message')}"
+			}else{
+				flash.message = "${message(code: 'allocation.updated.message')}"
+			}
 			redirect(action: "show", id: allocation.id)
 		}
 		else {
@@ -104,7 +116,7 @@ class AllocationController {
 	def show = {
 		def allocation = Allocation.get(params.id)
 		if (!allocation) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'allocation.label', default: 'Allocation'), params.id])}"
+			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -115,7 +127,7 @@ class AllocationController {
 	def edit = {
 		def allocation = Allocation.get(params.id)
 		if (!allocation) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'allocation.label', default: 'Allocation'), params.id])}"
+			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -128,16 +140,16 @@ class AllocationController {
 		if (allocationInstance) {
 			try {
 				allocationInstance.delete(flush: true)
-				flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'allocation.label', default: 'Allocation'), params.id])}"
+				flash.message = "${message(code: 'allocation.deleted.message')}"
 				redirect(action: "list")
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'allocation.label', default: 'Allocation'), params.id])}"
+				flash.message = "${message(code: 'allocation.not.deleted.message')}"
 				redirect(action: "show", id: params.id)
 			}
 		}
 		else {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'allocation.label', default: 'Allocation'), params.id])}"
+			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 	}

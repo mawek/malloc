@@ -76,6 +76,12 @@
 
 					</tbody>
 				</table>
+				
+				<!-- 
+				<div>
+					<img alt="${user.code}" src="file:///${grailsApplication.config.upload.user.photo}${user.photoPath}">					
+				</div>
+				 -->
 			</div>
 			<div class="buttons">
 				<span class="button"> <g:if test="${user?.id}">

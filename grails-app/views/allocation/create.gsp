@@ -59,9 +59,16 @@
 						</tr>
 
 						<tr class="prop">
-							<td valign="top" class="name"><label for="date"><g:message code="allocation.date.label" default="Date" /> </label></td>
-							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'date', 'errors')}"><calendar:resources lang="en 
-									theme="tiger" /> <calendar:datePicker name="date" value="${allocation.date?.toDate()}" dateFormat="%d.%m.%Y"
+							<td valign="top" class="name"><label for="startDate"><g:message code="allocation.startDate.label" default="startDate" /> </label></td>
+							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'startDate', 'errors')}"><calendar:resources lang="en 
+									theme="tiger" /> <calendar:datePicker name="startDate" value="${allocation.startDate?.toDate()}" dateFormat="%d.%m.%Y"
+									defaultValue="${new Date()}" /></td>
+						</tr>
+						
+						<tr class="prop">
+							<td valign="top" class="name"><label for="endDate"><g:message code="allocation.endDate.label" default="endDate" /> </label></td>
+							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'endDate', 'errors')}"><calendar:resources lang="en 
+									theme="tiger" /> <calendar:datePicker name="endDate" value="${allocation.endDate?.toDate()}" dateFormat="%d.%m.%Y"
 									defaultValue="${new Date()}" /></td>
 						</tr>
 
@@ -87,7 +94,7 @@
 						<tr class="prop">
 							<td valign="top" class="name"><label for="description"><g:message code="allocation.description.label"
 										default="Description" /> </label></td>
-							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'description', 'errors')}"><g:textField name="description"
+							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'description', 'errors')}"><g:textArea name="description"
 									value="${allocation?.description}" /></td>
 						</tr>
 

@@ -31,6 +31,7 @@
 						<g:sortableColumn property="description" title="${message(code: 'department.description.label', default: 'Description')}" />
 
 						<th><g:message code="department.teamleader.label" default="Team Leader" /></th>
+						<th></th>
 
 					</tr>
 				</thead>
@@ -44,7 +45,9 @@
 							</td>
 
 							<td>
-								${fieldValue(bean: department, field: "name")}								
+								<g:link action="show" id="${department.id}">
+									<g:shortly value='${fieldValue(bean: department, field: "description")}'/>
+								</g:link>																								
 							</td>
 
 
@@ -52,10 +55,18 @@
 								<g:shortly value='${fieldValue(bean: department, field: "description")}'/>
 							</td>
 
-							<td>
+							<td >
 								<g:link action="show" controller="user" id="${department.teamLeader?.id}">
 									${fieldValue(bean: department, field: "teamLeader")}
 								</g:link>								
+							</td>
+							<td width="10%">								
+								<g:form>
+                    				<g:hiddenField name="id" value="${department?.id}" />
+                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    				
+                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'department.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                				</g:form>                				
 							</td>
 
 						</tr>

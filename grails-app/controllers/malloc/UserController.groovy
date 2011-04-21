@@ -69,7 +69,6 @@ class UserController {
 			create = true
 		}
 
-
 		def file = request.getFile('photoFile')
 		if(!file.empty) {
 			// file.originalFilename

@@ -9,7 +9,8 @@ class Allocation {
 
 	static mapping = {
 		columns {
-			date column: 'requestDate'
+			startDate column: 'startDate'
+			endDate column: 'endDate'
 			type column: 'typeAlloc'
 		}
 		discussion sort:'date', order:'desc'
@@ -20,7 +21,14 @@ class Allocation {
 		name(blank:false)
 		type(nullable:false)
 		requester(nullable:true)
-		date(nullable:false)
+		startDate(nullable:false)
+		endDate(nullable:true,
+				validator: {val, obj ->
+					if (val?.compareTo(obj.startDate) >= 0 ) {
+						return true
+					}
+					return true
+				})
 		hours(blank:false, min:1, max:8)
 		worker(nullable:true)
 		approver(nullable:true)
@@ -38,6 +46,7 @@ class Allocation {
 	String link
 	AllocationType type
 	AllocationStatus status
-	DateTime date
+	DateTime startDate
+	DateTime endDate
 	int hours
 }

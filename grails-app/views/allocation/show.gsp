@@ -57,10 +57,19 @@
 					</tr>
 
 					<tr class="prop">
-						<td valign="top" class="name"><g:message code="allocation.date.label" default="Date" /></td>
+						<td valign="top" class="name"><g:message code="allocation.startDate.label" default="Date" /></td>
 
 						<td valign="top" class="value">
-							${fieldValue(bean: allocation, field: "date")}
+							${fieldValue(bean: allocation, field: "startDate")}
+						</td>
+
+					</tr>
+					
+					<tr class="prop">
+						<td valign="top" class="name"><g:message code="allocation.endDate.label" default="Date" /></td>
+
+						<td valign="top" class="value">
+							${fieldValue(bean: allocation, field: "endDate")}
 						</td>
 
 					</tr>

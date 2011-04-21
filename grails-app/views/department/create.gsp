@@ -42,7 +42,7 @@
 						<tr class="prop">
 							<td valign="top" class="name"><label for="code"><g:message code="department.code.label" default="Code" />
 							</label></td>
-							<td valign="top" class="value ${hasErrors(bean: department, field: 'code', 'errors')}"><g:textField name="code"
+							<td valign="top" class="value ${hasErrors(bean: department, field: 'code', 'errors')}"><g:textField name="code" maxlength="3"
 									value="${department?.code}" /></td>
 						</tr>
 
@@ -58,7 +58,7 @@
 										default="Description" />
 							</label></td>
 							<td valign="top" class="value ${hasErrors(bean: department, field: 'description', 'errors')}">
-							<g:textField name="description"	value="${department?.description}" /></td>
+							<g:textArea name="description"	value="${department?.description}" /></td>
 						</tr>
 
 						<tr class="prop">
