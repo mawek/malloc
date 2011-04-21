@@ -65,7 +65,7 @@
 							<td valign="top" class="name"><label for="department"><g:message code="user.department.label" default="Department" /> </label>
 							</td>
 							<td valign="top" class="value ${hasErrors(bean: user, field: 'department', 'errors')}"><g:select name="department.id"
-									from="${malloc.Department.list()}" optionKey="id" value="${user?.department?.id}" noSelection="['null': '']" /></td>
+									from="${malloc.Department.list()}" optionKey="id" value="${user?.department?.id}" optionValue="code" noSelection="['null': '']" /></td>
 						</tr>
 
 

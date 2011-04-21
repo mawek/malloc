@@ -58,15 +58,17 @@
 							<td><a href="mailto:${fieldValue(bean: user, field: "email")}"> ${fieldValue(bean: user, field: "email")} </a>
 							</td>
 
-							<td>
-							<g:shortly value='${fieldValue(bean: user, field: "department")}'/>								
+							<td nowrap="nowrap">
+								<g:link action="show" controller="department" id="${user.department?.id}">
+									<g:shortly value='${fieldValue(bean: user, field: "department")}'/>									
+								</g:link>																
 							</td>
-							<td>								
+							<td width="10%">								
 								<g:form>
                     				<g:hiddenField name="id" value="${user?.id}" />
                     				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     				
-                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'user.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 				</g:form>                				
 							</td>
 
