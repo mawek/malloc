@@ -134,10 +134,11 @@
 
 	<br/>
 	<br/>
+	<div id="discussion">
 	<h2>
 			<g:message code="allocation.discussion.label" />
 	</h2>	
-		<g:formRemote name="addDisc"  id="addDisc" url="[controller:'discussion',action:'save']" update="discussionList" enctype="multipart/form-data">
+		<g:formRemote name="addDisc"  id="addDisc" url="[controller:'discussion',action:'save']" update="discussionList" enctype="multipart/form-data" after="document.addDisc.note.value='';">
 			<g:hiddenField name="allocation.id" value="${allocation.id}" />			
 			<g:textArea name="note"/>
 			
@@ -148,6 +149,7 @@
 		</g:formRemote>
 	<div id="discussionList">	
 		<g:render template="/discussion/show" var="discussion" collection="${allocation.discussion}" />
+	</div>
 	</div>
 </body>
 </html>

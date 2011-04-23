@@ -235,6 +235,10 @@ th {
 	padding: 2px 6px;
 }
 
+th.discussion {
+	background: #ddd;	
+}
+
 th a:link,th a:visited,th a:hover {
 	color: #333;
 	display: block;

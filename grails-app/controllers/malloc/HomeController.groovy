@@ -2,5 +2,9 @@ package malloc
 
 class HomeController {
 
-    def index = { }
+	def index = {
+		if(session.user){
+			redirect(controller:"allocation", action:"my")
+		}
+	}
 }

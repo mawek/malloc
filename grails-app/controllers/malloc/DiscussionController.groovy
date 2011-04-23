@@ -30,6 +30,7 @@ class DiscussionController {
 
 
 	def delete = {
+		//TODO: mail ak ti niekto zmaze prispevok
 		def discussion = Discussion.get(params.id)		
 		if (discussion) {
 			try {
