@@ -16,6 +16,9 @@ class Allocation {
 		discussion sort:'date', order:'desc'
 	}
 
+	static belongsTo = 	[worker:User, requester:User]
+
+
 
 	static constraints = {
 		name(blank:false)
@@ -27,10 +30,10 @@ class Allocation {
 					if (val?.compareTo(obj.startDate) >= 0 ) {
 						return true
 					}
-					return true
+					return false
 				})
 		hours(blank:false, min:1, max:8)
-		worker(nullable:true)
+		worker(nullable:false)
 		approver(nullable:true)
 	}
 

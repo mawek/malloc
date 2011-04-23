@@ -31,7 +31,7 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("startDate", new DateTime())
+					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
 			}
 		}
@@ -43,7 +43,7 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("startDate", new DateTime())
+					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
 				order("startDate", "asc")
 			}
@@ -56,7 +56,7 @@ class AllocationController {
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
 					])
-					gt("startDate", new DateTime())
+					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
 				order("startDate", "asc")
 			}
@@ -136,21 +136,24 @@ class AllocationController {
 	}
 
 	def delete = {
+		//TODO: posli mail ak si requester ale alokaciu ti zmazal niekto iny
 		def allocationInstance = Allocation.get(params.id)
 		if (allocationInstance) {
 			try {
 				allocationInstance.delete(flush: true)
 				flash.message = "${message(code: 'allocation.deleted.message')}"
-				redirect(action: "list")
+				redirect(url: request.getHeader('referer'))
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = "${message(code: 'allocation.not.deleted.message')}"
-				redirect(action: "show", id: params.id)
+//				redirect(action: "show", id: params.id)
+				redirect(url: request.getHeader('referer'))
 			}
 		}
 		else {
 			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
-			redirect(action: "list")
+//			redirect(action: "list")
+			redirect(url: request.getHeader('referer'))
 		}
 	}
 }

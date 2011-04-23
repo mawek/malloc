@@ -23,11 +23,9 @@
 		<div class="list">
 			<table>
 				<thead>
-					<tr>						
+					<tr >						
 
-						<g:sortableColumn property="name" title="${message(code: 'allocation.name.label', default: 'Name')}" />
-
-						<g:sortableColumn property="type" title="${message(code: 'allocation.type.label', default: 'Type')}" />
+						<g:sortableColumn property="name" title="${message(code: 'allocation.name.label', default: 'Name')}" />						
 						
 						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
 
@@ -37,7 +35,7 @@
 						
 						<th><g:message code="allocation.approver.label" default="Approver" /></th>
 
-						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />						
+						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
 
 					</tr>
 				</thead>
@@ -47,14 +45,9 @@
 
 							<td>
 								<g:link action="show" id="${allocation.id}">
-								${fieldValue(bean: allocation, field: "name")}
+									<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>								
 								</g:link>
-							</td>
-
-							<td>
-								${message(code: 'allocation.type.'+allocation?.type?.encodeAsHTML(), default: allocation?.type?.encodeAsHTML())}
-																
-							</td>
+							</td>							
 							
 							<td>
 								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
@@ -78,8 +71,8 @@
 								</g:link>	
 							</td>
 							<td>
-								<g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /> 
-							</td>
+								<g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /> 
+							</td>							
 
 						</tr>
 					</g:each>

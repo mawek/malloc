@@ -7,6 +7,14 @@
 </title>
 </head>
 <body>
+
+	<g:if test="${flash.message}">
+			<div class="message">
+				${flash.message}
+			</div>
+	</g:if>
+	<br/>
+		
 	<div class="nav">
 		<span class="menuButton"><g:link class="create" action="create">
 				<g:message code="allocation.new.label" />
@@ -18,11 +26,7 @@
 		<h1>
 			<g:message code="allocation.list.my.allocations.label" default="My allocations"/>
 		</h1>
-		<g:if test="${flash.message}">
-			<div class="message">
-				${flash.message}
-			</div>
-		</g:if>
+		
 		<div class="list">
 			<table>
 				<thead>
@@ -35,15 +39,12 @@
 						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
 
 						<th><g:message code="allocation.requester.label" default="Requester" />
-						</th>
-
-						<th><g:message code="allocation.worker.label" default="Worker" />
-						</th>
-
+						</th>						
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />						
+						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
+						<th></th>						
 
 					</tr>
 				</thead>
@@ -52,7 +53,7 @@
 						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 							<td><g:link action="show" id="${allocation.id}">
-									${fieldValue(bean: allocation, field: "name")}
+									<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>								
 								</g:link></td>
 
 							<td>
@@ -66,15 +67,20 @@
 							<td><g:link action="show" controller="user" id="${allocation.requester?.id}">
 									${allocation.requester?.code}
 								</g:link></td>
-
-							<td><g:link action="show" controller="user" id="${allocation.worker?.id}">
-									${allocation.worker?.code}
-								</g:link></td>
+							
 
 							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
 								</g:link></td>
 							<td><g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /></td>							
+							<td width="10%">								
+								<g:form>
+                    				<g:hiddenField name="id" value="${allocation?.id}" />
+                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    				<br/>
+                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                				</g:form>                				
+							</td>
 
 						</tr>
 					</g:each>
@@ -85,17 +91,15 @@
 	
 	
 	<br />
+	<br />
+	<br />
 	
 	<!-- moje schvalovanie alokacii -->
 	<div class="body">
 		<h1>
 			<g:message code="allocation.list.my.approvals.label" default="Allocations waiting for my aproval"/>
 		</h1>
-		<g:if test="${flash.message}">
-			<div class="message">
-				${flash.message}
-			</div>
-		</g:if>
+		
 		<div class="list">
 			<table>
 				<thead>
@@ -111,21 +115,19 @@
 						</th>
 
 						<th><g:message code="allocation.worker.label" default="Worker" />
-						</th>
-
-						<th><g:message code="allocation.approver.label" default="Approver" />
-						</th>
-
-						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />
+						</th> 
+						
+						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
+						<th></th>
 
 					</tr>
 				</thead>
 				<tbody>
-					<g:each in="${myApproves}" status="i" var="allocation">
+					<g:each in="${myApprovals}" status="i" var="allocation">
 						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 							<td><g:link action="show" id="${allocation.id}">
-									${fieldValue(bean: allocation, field: "name")}
+								<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>								
 								</g:link></td>
 
 							<td>
@@ -144,30 +146,32 @@
 									${allocation.worker?.code}
 								</g:link></td>
 
-							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
-									${allocation.approver?.code}
-								</g:link></td>
-							<td><g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /></td>
-
+							<td><g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /></td>
+							<td width="10%">								
+								<g:form>
+                    				<g:hiddenField name="id" value="${allocation?.id}" />
+                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    				<br/>
+                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                				</g:form>                				
+							</td>
 						</tr>
 					</g:each>
 				</tbody>
 			</table>
 		</div>		
 	</div>
-	
+	<br/>
+	<br/>
+	<br/>
 	<!-- ziadost o alokacie -->
 	<div class="body">
 		<h1>
 			<g:message code="allocation.list.my.requests.label" default="My allocation requests"/>
 		</h1>
-		<g:if test="${flash.message}">
-			<div class="message">
-				${flash.message}
-			</div>
-		</g:if>
+		
 		<div class="list">
-			<table>
+			<table width="80%">
 				<thead>
 					<tr>
 
@@ -177,17 +181,14 @@
 
 						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
 
-						<th><g:message code="allocation.requester.label" default="Requester" />
-						</th>
-
 						<th><g:message code="allocation.worker.label" default="Worker" />
 						</th>
 
 						<th><g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
-						<g:sortableColumn property="date" title="${message(code: 'allocation.date.label', default: 'Date')}" />
-
+						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -195,7 +196,7 @@
 						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 							<td><g:link action="show" id="${allocation.id}">
-									${fieldValue(bean: allocation, field: "name")}
+									<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>									
 								</g:link></td>
 
 							<td>
@@ -206,10 +207,6 @@
 								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
 							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.requester?.id}">
-									${allocation.requester?.code}
-								</g:link></td>
-
 							<td><g:link action="show" controller="user" id="${allocation.worker?.id}">
 									${allocation.worker?.code}
 								</g:link></td>
@@ -217,8 +214,15 @@
 							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
 								</g:link></td>
-							<td><g:formatDate date="${allocation.date?.toDate()}" format="dd.MM.yyyy" /></td>
-
+							<td><g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /></td>
+							<td width="10%">								
+								<g:form>
+                    				<g:hiddenField name="id" value="${allocation?.id}" />
+                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
+                    				<br/>
+                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                				</g:form>                				
+							</td>
 						</tr>
 					</g:each>
 				</tbody>

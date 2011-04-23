@@ -4,9 +4,9 @@
 			${flash.login?.message}
 		</div>
 	</g:if>
-	<g:form action="handleLogin" controller="user" method="post">
+	<g:form action="login" controller="login" method="post">
 		<g:select name="code" from="${malloc.User.list()}" optionKey="code"></g:select>
-		<span class="button"><g:actionSubmit value="${message(code:'login')}" action="handleLogin" /> </span>
+		<span class="button"><g:actionSubmit value="${message(code:'login')}" action="login" /> </span>
 	</g:form>
 </div>
 

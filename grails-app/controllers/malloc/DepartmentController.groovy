@@ -93,16 +93,19 @@ class DepartmentController {
 			try {
 				departmentInstance.delete(flush: true)
 				flash.message = "${message(code: 'department.deleted.message', args: [department.code])}"				
-				redirect(action: "list")
+//				redirect(action: "list")
+				redirect(url: request.getHeader('referer'))
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = "${message(code: 'department.not.deleted.message', args: [department.code])}"
-				redirect(action: "show", id: params.id)
+//				redirect(action: "show", id: params.id)
+				redirect(url: request.getHeader('referer'))
 			}
 		}
 		else {
 			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"
-			redirect(action: "list")
+//			redirect(action: "list")
+			redirect(url: request.getHeader('referer'))
 		}
 	}
 }

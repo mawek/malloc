@@ -20,7 +20,7 @@ class DiscussionController {
 		discussion.date = new DateTime()
 
 		if (discussion.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'discussion.label', default: 'Discussion'), discussion.id])}"
+//			flash.message = "${message(code: 'default.created.message', args: [message(code: 'discussion.label', default: 'Discussion'), discussion.id])}"
 			render(template: "show", var:'discussion', collection: Allocation.get(params['allocation.id']).discussion)
 		}
 		else {
@@ -34,11 +34,11 @@ class DiscussionController {
 		if (discussion) {
 			try {
 				discussion.delete(flush: true)
-				flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'discussion.label', default: 'Discussion'), params.id])}"
+//				flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'discussion.label', default: 'Discussion'), params.id])}"
 				return render(template: "show", var:'discussion', collection: Allocation.get(params.allocationId).discussion)
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'discussion.label', default: 'Discussion'), params.id])}"
+//				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'discussion.label', default: 'Discussion'), params.id])}"
 				return render(template: "show", var:'discussion', collection: Allocation.get(params.allocationId).discussion)
 			}
 		}

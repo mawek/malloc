@@ -2,28 +2,11 @@ package malloc
 
 class UserController {
 
-	static allowedMethods = [save: "POST", update: "POST", delete: "POST", handleLogin: "POST"]
+	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
 	def index = {
 		redirect(action: "list", params: params)
 	}
-
-	def handleLogin = {
-		def user = User.findByCode(params.code)
-		if(!user){
-			flash.login.message = "User for code '${params.code}' not found."
-			return
-		}
-
-		session.user = user
-		redirect(url: request.getHeader('referer'))
-	}
-
-	def logout = {
-		session.user = null
-		redirect(controller: 'home')
-	}
-
 
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 20, 100)
@@ -106,16 +89,19 @@ class UserController {
 			try {
 				user.delete(flush: true)
 				flash.message = "${message(code: 'user.deleted.message', args: [user.name, user.surname])}"
-				redirect(action: "list")
+//				redirect(action: "list")
+				redirect(url: request.getHeader('referer'))
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = "${message(code: 'user.not.deleted.message', args: [user.name, user.surname])}"
-				redirect(action: "list")
+//				redirect(action: "list")
+				redirect(url: request.getHeader('referer'))
 			}
 		}
 		else {
 			flash.message = "${message(code: 'user.not.found.message', args: [params.id])}"
-			redirect(action: "list")
+//			redirect(action: "list")
+			redirect(url: request.getHeader('referer'))
 		}
 	}
 }

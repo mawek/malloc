@@ -12,6 +12,8 @@
 </title>
 </head>
 <body>
+
+	<calendar:resources lang="en" theme="tiger" />
 	<div class="body">
 		<h1>
 			<g:if test="${allocation?.id}">
@@ -59,16 +61,14 @@
 						</tr>
 
 						<tr class="prop">
-							<td valign="top" class="name"><label for="startDate"><g:message code="allocation.startDate.label" default="startDate" /> </label></td>
-							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'startDate', 'errors')}"><calendar:resources lang="en 
-									theme="tiger" /> <calendar:datePicker name="startDate" value="${allocation.startDate?.toDate()}" dateFormat="%d.%m.%Y"
+							<td valign="top" class="name"><label for="startDate"><g:message code="allocation.startDate.label" default="Start date" /> </label></td>
+							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'startDate', 'errors')}"> <calendar:datePicker name="startDate" value="${allocation.startDate?.toDate()}" dateFormat="%d.%m.%Y"
 									defaultValue="${new Date()}" /></td>
 						</tr>
 						
 						<tr class="prop">
-							<td valign="top" class="name"><label for="endDate"><g:message code="allocation.endDate.label" default="endDate" /> </label></td>
-							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'endDate', 'errors')}"><calendar:resources lang="en 
-									theme="tiger" /> <calendar:datePicker name="endDate" value="${allocation.endDate?.toDate()}" dateFormat="%d.%m.%Y"
+							<td valign="top" class="name"><label for="endDate"><g:message code="allocation.endDate.label" default="End date" /> </label></td>
+							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'endDate', 'errors')}"> <calendar:datePicker name="endDate" value="${allocation.endDate?.toDate()}" dateFormat="%d.%m.%Y"
 									defaultValue="${new Date()}" /></td>
 						</tr>
 
