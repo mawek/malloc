@@ -76,19 +76,12 @@
 								<g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /> 
 							</td>	
 							
-							<td width="10%">
-								<g:form>
-									<g:hiddenField name="id" value="${allocation?.id}" />
-									<span class="button">
-										<g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /> 
-									</span>
-									<br />
-									
-									<span class="button">
-										<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /> 
-									</span>
-								</g:form>
-							</td>						
+							<td width="10%" style="line-height: 1.5em;">																
+									<g:link controller="allocation" action="edit" params="${[id:allocation.id]}" ><g:message code="default.button.edit.label" default="Edit" /></g:link>
+									<br/>
+									<g:link controller="allocation" action="delete" params="${[id:allocation.id]}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');"><g:message code="default.button.delete.label" default="Delete" /></g:link>
+							</td>
+				
 
 						</tr>
 					</g:each>

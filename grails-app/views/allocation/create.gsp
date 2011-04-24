@@ -84,7 +84,7 @@
 							</td>
 							
 							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'status', 'errors')}">							
-								<g:select name="status" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationStatus?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationStatus.values().collect{message(code: 'allocation.status.'+it.name())}}" />
+								<g:select name="status" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationStatus?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationStatus.values().collect{message(code: 'allocation.status.'+it.name())}}" value="${allocation.status.name()}" />
 							</td>
 							
 							<td valign="top" class="name">
@@ -106,7 +106,7 @@
 							</td>
 							
 							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'type', 'errors')}">
-								<g:select name="type" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationType?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationType.values().collect{message(code: 'allocation.type.'+it.name())}}" />
+								<g:select name="type" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationType?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationType.values().collect{message(code: 'allocation.type.'+it.name())}}"  value="${allocation.type.name()}" />
 							</td>
 							
 							<td valign="top" class="name">

@@ -121,6 +121,32 @@ class AllocationController {
 		}
 	}
 
+	def approve = {
+		def allocation = Allocation.get(params.id)
+		if (!allocation) {
+			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
+			redirect(url: request.getHeader('referer'))
+		}
+		else {
+			allocation.status = AllocationStatus.GRANTED.name()
+			flash.message = "${message(code: 'allocation.approved.message')}"
+			redirect(url: request.getHeader('referer'))
+		}
+	}
+	
+	def refuse = {
+		def allocation = Allocation.get(params.id)
+		if (!allocation) {
+			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
+			redirect(url: request.getHeader('referer'))
+		}
+		else {
+			allocation.status = AllocationStatus.REFUSED.name()
+			flash.message = "${message(code: 'allocation.refused.message')}"
+			redirect(url: request.getHeader('referer'))
+		}
+	}
+	
 	def show = {
 		def allocation = Allocation.get(params.id)
 		if (!allocation) {
