@@ -159,8 +159,11 @@ select {
 }
 
 textarea {
-	width: 98%;
-	vertical-align: top;
+	vertical-align: top;	
+}
+
+textarea.wide {
+	width: 98%;	
 }
 
 input:focus,select:focus,textarea:focus {
@@ -211,6 +214,10 @@ td.errors textarea {
 table {
 	border: 1px solid #ccc;
 	width: 100%
+}
+
+table.noborder {
+	border: 0px;	
 }
 
 tr {
@@ -315,7 +322,7 @@ th.desc a {
 }
 
 .prop .name {
-	text-align: left;
+	text-align: left;	
 	width: 15%;
 	white-space: nowrap;
 }
