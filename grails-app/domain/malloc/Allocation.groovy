@@ -51,5 +51,5 @@ class Allocation {
 	AllocationStatus status
 	DateTime startDate
 	DateTime endDate
-	int hours
+	int hours = 8 
 }

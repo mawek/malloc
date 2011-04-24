@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>nova alokace</title>
+		<title>nová alokace</title>
 	</head>
 
 	<body>
@@ -27,6 +27,10 @@
 				</td>
 			</tr>
 		</table>
+				
+		<p>			
+			<g:link absolute="true" action="show" controller="allocation" params="${[id:newAllocation.id]}"><g:message code="allocation.link"/></g:link>
+		</p>
 				
 	</body>
 </html>

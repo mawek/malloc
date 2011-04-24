@@ -88,7 +88,7 @@ class AllocationController {
 					allocation.errors.rejectValue("version", "default.optimistic.locking.failure", [
 						message(code: 'allocation.label', default: 'Allocation')]
 					as Object[], "Another user has updated this Allocation while you were editing")
-					render(view: "edit", model: [allocation: allocation])
+					render(view: "create", model: [allocation: allocation])
 					return
 				}
 			}
