@@ -18,7 +18,7 @@
 <body>
 	<div class="body">
 	
-		<!-- nadpis vytvorenia/zalozenia oddelenia -->
+		<!-- nadpis vytvorenia/editacie oddelenia -->
 		<h1>
 			<g:if test="${user?.id}">
 				<g:message code="department.edit.label" />

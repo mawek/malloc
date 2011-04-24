@@ -18,7 +18,7 @@
 <body>
 	<div class="body">
 		
-		<!-- nadpis vytvorenia/zalozenia uzivatela -->
+		<!-- nadpis vytvorenia/editacie uzivatela -->
 		<h1>
 			<g:if test="${user?.id}">
 				<g:message code="user.edit.label" />
@@ -29,7 +29,7 @@
 		</h1>
 		<br/>
 		
-		<!-- zobrazenie flashu -->
+		<!-- zobrazenie flash sprav -->
 		<g:if test="${flash.message}">
 			<div class="message">
 				${flash.message}

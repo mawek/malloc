@@ -32,7 +32,7 @@ class Allocation {
 					}
 					return false
 				})
-		hours(blank:false, min:1, max:8)
+		hours(blank:false, min:1, max:40)
 		worker(nullable:false)
 		approver(nullable:true)
 	}

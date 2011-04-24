@@ -36,7 +36,8 @@
 						<th><g:message code="allocation.approver.label" default="Approver" /></th>
 
 						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
-
+						
+						<th><!-- buttony na editaciu/zmazanie --></th>	
 					</tr>
 				</thead>
 				<tbody>
@@ -70,9 +71,24 @@
 									${allocation.approver?.code}
 								</g:link>	
 							</td>
+							
 							<td>
 								<g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /> 
-							</td>							
+							</td>	
+							
+							<td width="10%">
+								<g:form>
+									<g:hiddenField name="id" value="${allocation?.id}" />
+									<span class="button">
+										<g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /> 
+									</span>
+									<br />
+									
+									<span class="button">
+										<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /> 
+									</span>
+								</g:form>
+							</td>						
 
 						</tr>
 					</g:each>

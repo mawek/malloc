@@ -18,6 +18,7 @@
 		<h1>
 			<g:message code="department.detail.label" />: ${fieldValue(bean: department, field: "code")} - ${fieldValue(bean: department, field: "name")}			
 		</h1>
+		
 		<div>
 			<g:link action="edit"  controller="department" id="${department.id}">
 					(<g:message code="department.edit.label" />)

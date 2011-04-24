@@ -25,7 +25,8 @@ class AllocationController {
 		def user = User.get(params.userId)
 		
 		if(!user){
-			user = session.user
+			// user musim nacitat vzdy odznova lebo to hodi drzku ked chcem lazy dotiahnut teamLeadera departmentu, ktory sa zistuje pri zakladani alokacie
+			user = User.get(session.user?.id)
 		}	
 
 		def myAllocations = {
