@@ -36,8 +36,7 @@ class AllocationController {
 				and{
 					eq("worker",user)
 					'in'("status",[
-						AllocationStatus.NEW,
-						AllocationStatus.SPECIFY_REQUEST
+						AllocationStatus.GRANTED				
 					])
 					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
@@ -46,11 +45,7 @@ class AllocationController {
 		def myRequests = {
 			Allocation.createCriteria().list{
 				and{
-					eq("requester",user)
-					'in'("status",[
-						AllocationStatus.NEW,
-						AllocationStatus.SPECIFY_REQUEST
-					])
+					eq("requester",user)					
 					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
 				order("startDate", "asc")
@@ -62,7 +57,7 @@ class AllocationController {
 					eq("approver",user)
 					'in'("status",[
 						AllocationStatus.NEW,
-						AllocationStatus.SPECIFY_REQUEST
+						AllocationStatus.CONSIDERING,						
 					])
 					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}

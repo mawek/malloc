@@ -16,7 +16,7 @@
 	
 		<!-- nadpis - detail uzivatela -->
 		<h1>
-			<g:message code="user.detail.label" />: ${fieldValue(bean: user, field: "code")} - ${fieldValue(bean: user, field: "name")} ${fieldValue(bean: user, field: "surname")} (<a href="mailto:${fieldValue(bean: user, field: 'email')}">${fieldValue(bean: user, field: "email")}</a>) | <g:link controller="department" action="show" params="${[id:user.department?.id]}">${user.department?.code}</g:link> 
+			<g:message code="user.detail.label" />: ${fieldValue(bean: user, field: "code")} - ${fieldValue(bean: user, field: "name")} ${fieldValue(bean: user, field: "surname")} <g:if test="${user.email}">(<a href="mailto:${fieldValue(bean: user, field: 'email')}">${fieldValue(bean: user, field: "email")}</a>)</g:if> <g:if test="${user.department}">| <g:link controller="department" action="show" params="${[id:user.department?.id]}">${user.department?.code}</g:link></g:if> 
 		</h1>
 				
 		<div>
