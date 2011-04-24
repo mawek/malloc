@@ -73,13 +73,13 @@ class UserController {
 
 
 	def show = {
-		def userInstance = User.get(params.id)
-		if (!userInstance) {
+		def user = User.get(params.id)
+		if (!user) {
 			flash.message = "${message(code: 'user.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
-			[userInstance: userInstance]
+			[user: user]
 		}
 	}
 

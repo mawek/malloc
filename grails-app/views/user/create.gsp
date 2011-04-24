@@ -93,7 +93,7 @@
 								</label>
 							</td>
 							<td valign="top" class="value ${hasErrors(bean: user, field: 'department', 'errors')}">
-								<g:select name="department.id" from="${malloc.Department.list()}" optionKey="id" value="${user?.department?.id}" optionValue="code" noSelection="['null': '']" />
+								<g:select name="department.id" from="${malloc.Department.list()}" optionKey="id" value="${user?.department?.id}" noSelection="['null': '']" />
 							</td>
 						</tr>
 

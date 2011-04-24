@@ -22,11 +22,18 @@ class AllocationController {
 	}
 
 	def my = {
+		def user = User.get(params.userId)
+		
+		if(!user){
+			user = session.user
+		}	
 
 		def myAllocations = {
+			
+			
 			Allocation.createCriteria().list(sort:"startDate", order:"asc"){
 				and{
-					eq("worker",session.user)
+					eq("worker",user)
 					'in'("status",[
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
@@ -38,7 +45,7 @@ class AllocationController {
 		def myRequests = {
 			Allocation.createCriteria().list{
 				and{
-					eq("requester",session.user)
+					eq("requester",user)
 					'in'("status",[
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
@@ -51,7 +58,7 @@ class AllocationController {
 		def myApprovals = {
 			Allocation.createCriteria().list{
 				and{
-					eq("approver",session.user)
+					eq("approver",user)
 					'in'("status",[
 						AllocationStatus.NEW,
 						AllocationStatus.SPECIFY_REQUEST
