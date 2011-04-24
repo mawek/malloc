@@ -1,3 +1,7 @@
-* mailer
-* ajax - pridavanie diskusii
+* mailer 
+* ajax - pridavanie diskusii - DONE
 * security
+* detaily POJO
+* allocation filter
+* pri vytvarani alokacie nasepkavac pri nazve
+* sidebar

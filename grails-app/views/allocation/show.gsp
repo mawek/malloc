@@ -140,7 +140,7 @@
 	</h2>	
 		<g:formRemote name="addDisc"  id="addDisc" url="[controller:'discussion',action:'save']" update="discussionList" enctype="multipart/form-data" after="document.addDisc.note.value='';">
 			<g:hiddenField name="allocation.id" value="${allocation.id}" />			
-			<g:textArea name="note"/>
+			<g:textArea name="note" style="width:100%;"/>
 			
 				<span class="button"> 
 						<g:submitButton name="add" class="save" value="${message(code: 'discussion.button.add.label', default: 'Add')}" />

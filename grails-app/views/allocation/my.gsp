@@ -1,32 +1,41 @@
 <%@ page import="malloc.Allocation"%>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="layout" content="main" />
-<title><g:message code="allocation.list.label" />
-</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="layout" content="main" />
+	
+	<!-- popis v liste zoznam alokacii aktualneho uzivatela -->
+	<title>
+		<g:message code="allocation.list.label" />
+	</title>
 </head>
+
 <body>
 
+	<!-- zobrazenie flashu -->
 	<g:if test="${flash.message}">
-			<div class="message">
-				${flash.message}
-			</div>
+		<div class="message">
+			${flash.message}
+		</div>
 	</g:if>
-	<br/>
-		
+	<br />
+
+	<!-- link na vytvorenie novej ziadosti o alokaciu -->
 	<div class="nav">
-		<span class="menuButton"><g:link class="create" action="create">
+		<span class="menuButton"> 
+			<g:link class="create" action="create" params="${['worker.id':user.id, 'approver.id':user.department?.teamLeader?.id]}">
 				<g:message code="allocation.new.label" />
-			</g:link> </span>
+			</g:link> 
+		</span>
 	</div>
-	
-	<!-- alokacie na mna -->
+
+	<!-- alokacie na mna (alebo na aktualneho uzivatela) -->
 	<div class="body">
 		<h1>
-			<g:message code="allocation.list.my.allocations.label" default="My allocations"/>
+			<g:message code="allocation.list.my.allocations.label" args="${[user.code, user.name,user.surname]}" default="Users allocations" />
 		</h1>
-		
+
 		<div class="list">
 			<table>
 				<thead>
@@ -38,13 +47,17 @@
 
 						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
 
-						<th><g:message code="allocation.requester.label" default="Requester" />
-						</th>						
-						<th><g:message code="allocation.approver.label" default="Approver" />
+						<th>
+							<g:message code="allocation.requester.label" default="Requester" />
+						</th>
+
+						<th>
+							<g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
 						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
-						<th></th>						
+
+						<th><!-- buttony na editaciu/zmazanie --></th>
 
 					</tr>
 				</thead>
@@ -52,9 +65,11 @@
 					<g:each in="${myAllocations}" status="i" var="allocation">
 						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-							<td><g:link action="show" id="${allocation.id}">
-									<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>								
-								</g:link></td>
+							<td>
+								<g:link action="show" id="${allocation.id}">
+									<g:shortly value='${fieldValue(bean: allocation, field: "name")}' />
+								</g:link>
+							</td>
 
 							<td>
 								${message(code: 'allocation.type.'+allocation?.type?.encodeAsHTML(), default: allocation?.type?.encodeAsHTML())}
@@ -64,42 +79,55 @@
 								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
 							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.requester?.id}">
+							<td>
+								<g:link action="show" controller="user" id="${allocation.requester?.id}">
 									${allocation.requester?.code}
-								</g:link></td>
-							
+								</g:link>
+							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
+
+							<td>
+								<g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
-								</g:link></td>
-							<td><g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /></td>							
-							<td width="10%">								
+								</g:link>
+							</td>
+							
+							<td>
+								<g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" />
+							</td>
+							
+							<td width="10%">
 								<g:form>
-                    				<g:hiddenField name="id" value="${allocation?.id}" />
-                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    				<br/>
-                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                				</g:form>                				
+									<g:hiddenField name="id" value="${allocation?.id}" />
+									<span class="button">
+										<g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /> 
+									</span>
+									<br />
+									
+									<span class="button">
+										<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /> 
+									</span>
+								</g:form>
 							</td>
 
 						</tr>
 					</g:each>
 				</tbody>
 			</table>
-		</div>		
+		</div>
 	</div>
-	
-	
+
+
 	<br />
 	<br />
 	<br />
-	
+
 	<!-- moje schvalovanie alokacii -->
 	<div class="body">
 		<h1>
-			<g:message code="allocation.list.my.approvals.label" default="Allocations waiting for my aproval"/>
+			<g:message code="allocation.list.my.approvals.label" args="${[user.code, user.name,user.surname]}" default="Allocations waiting for aproval" />
 		</h1>
-		
+
 		<div class="list">
 			<table>
 				<thead>
@@ -111,24 +139,30 @@
 
 						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
 
-						<th><g:message code="allocation.requester.label" default="Requester" />
+						<th>
+							<g:message code="allocation.requester.label" default="Requester" />
 						</th>
 
-						<th><g:message code="allocation.worker.label" default="Worker" />
-						</th> 
-						
+						<th>
+							<g:message code="allocation.worker.label" default="Worker" />
+						</th>
+
 						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
-						<th></th>
+						
+						<th><!-- buttony na editaciu/zmazanie --></th>
 
 					</tr>
 				</thead>
+				
 				<tbody>
 					<g:each in="${myApprovals}" status="i" var="allocation">
 						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-							<td><g:link action="show" id="${allocation.id}">
-								<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>								
-								</g:link></td>
+							<td>
+								<g:link action="show" id="${allocation.id}">
+									<g:shortly value='${fieldValue(bean: allocation, field: "name")}' />
+								</g:link>
+							</td>
 
 							<td>
 								${message(code: 'allocation.type.'+allocation?.type?.encodeAsHTML(), default: allocation?.type?.encodeAsHTML())}
@@ -138,38 +172,51 @@
 								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
 							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.requester?.id}">
+							<td>
+								<g:link action="show" controller="user" id="${allocation.requester?.id}">
 									${allocation.requester?.code}
-								</g:link></td>
+								</g:link>
+							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.worker?.id}">
+							<td>
+								<g:link action="show" controller="user" id="${allocation.worker?.id}">
 									${allocation.worker?.code}
-								</g:link></td>
+								</g:link>
+							</td>
 
-							<td><g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /></td>
-							<td width="10%">								
+							<td>
+								<g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" />
+							</td>
+							
+							<td width="10%">
 								<g:form>
-                    				<g:hiddenField name="id" value="${allocation?.id}" />
-                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    				<br/>
-                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                				</g:form>                				
+									<g:hiddenField name="id" value="${allocation?.id}" />
+									<span class="button">
+										<g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /> 
+									</span>
+									<br />
+									
+									<span class="button">
+										<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /> 
+									</span>
+								</g:form>
 							</td>
 						</tr>
 					</g:each>
 				</tbody>
 			</table>
-		</div>		
+		</div>
 	</div>
-	<br/>
-	<br/>
-	<br/>
+	<br />
+	<br />
+	<br />
+	
 	<!-- ziadost o alokacie -->
 	<div class="body">
 		<h1>
-			<g:message code="allocation.list.my.requests.label" default="My allocation requests"/>
+			<g:message code="allocation.list.my.requests.label" args="${[user.code, user.name,user.surname]}" default="User allocation requests" />
 		</h1>
-		
+
 		<div class="list">
 			<table width="80%">
 				<thead>
@@ -181,23 +228,28 @@
 
 						<g:sortableColumn property="status" title="${message(code: 'allocation.status.label', default: 'Status')}" />
 
-						<th><g:message code="allocation.worker.label" default="Worker" />
+						<th>
+							<g:message code="allocation.worker.label" default="Worker" />
 						</th>
 
-						<th><g:message code="allocation.approver.label" default="Approver" />
+						<th>
+							<g:message code="allocation.approver.label" default="Approver" />
 						</th>
 
 						<g:sortableColumn property="startDate" title="${message(code: 'allocation.startDate.label', default: 'Start date')}" />
-						<th></th>
+						
+						<th><!-- buttony na editaciu/zmazanie --></th>
 					</tr>
 				</thead>
 				<tbody>
 					<g:each in="${myRequests}" status="i" var="allocation">
 						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-							<td><g:link action="show" id="${allocation.id}">
-									<g:shortly value='${fieldValue(bean: allocation, field: "name")}'/>									
-								</g:link></td>
+							<td>
+								<g:link action="show" id="${allocation.id}">
+									<g:shortly value='${fieldValue(bean: allocation, field: "name")}' />
+								</g:link>
+							</td>
 
 							<td>
 								${message(code: 'allocation.type.'+allocation?.type?.encodeAsHTML(), default: allocation?.type?.encodeAsHTML())}
@@ -207,28 +259,41 @@
 								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
 							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.worker?.id}">
+							<td>
+								<g:link action="show" controller="user" id="${allocation.worker?.id}">
 									${allocation.worker?.code}
-								</g:link></td>
+								</g:link>
+							</td>
 
-							<td><g:link action="show" controller="user" id="${allocation.approver?.id}">
+							<td>
+								<g:link action="show" controller="user" id="${allocation.approver?.id}">
 									${allocation.approver?.code}
-								</g:link></td>
-							<td><g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" /></td>
-							<td width="10%">								
+								</g:link>
+							</td>
+							
+							<td>
+								<g:formatDate date="${allocation.startDate?.toDate()}" format="dd.MM.yyyy" />
+							</td>
+							
+							<td width="10%">
 								<g:form>
-                    				<g:hiddenField name="id" value="${allocation?.id}" />
-                    				<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    				<br/>
-                    				<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                				</g:form>                				
+									<g:hiddenField name="id" value="${allocation?.id}" />
+									<span class="button">
+										<g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /> 
+									</span>
+									<br />
+									
+									<span class="button">
+										<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'allocation.button.delete.confirm.message', default: 'Are you sure?')}');" /> 
+									</span>
+								</g:form>
 							</td>
 						</tr>
 					</g:each>
 				</tbody>
 			</table>
 		</div>
-	</div>	
-	
+	</div>
+
 </body>
 </html>

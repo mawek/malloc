@@ -53,11 +53,11 @@ class DepartmentController {
 			}
 
 			if(create){
-				flash.message = "${message(code: 'department.created.message', args: [department.code])}"				
+				flash.message = "${message(code: 'department.created.message', args: [department.code])}"
 			}else{
-				flash.message = "${message(code: 'department.updated.message', args: [department.code])}"				
+				flash.message = "${message(code: 'department.updated.message', args: [department.code])}"
 			}
-			redirect(action: "list", id: department.id)
+			redirect(action: "show", id: department.id)
 		} else {
 			render(view: "create", model: [department: department])
 		}
@@ -66,7 +66,7 @@ class DepartmentController {
 	def show = {
 		def department = Department.get(params.id)
 		if (!department) {
-			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"		
+			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -77,7 +77,7 @@ class DepartmentController {
 	def edit = {
 		def departmentInstance = Department.get(params.id)
 		if (!departmentInstance) {
-			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"			
+			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -92,19 +92,19 @@ class DepartmentController {
 		if (departmentInstance) {
 			try {
 				departmentInstance.delete(flush: true)
-				flash.message = "${message(code: 'department.deleted.message', args: [department.code])}"				
-//				redirect(action: "list")
+				flash.message = "${message(code: 'department.deleted.message', args: [department.code])}"
+				//				redirect(action: "list")
 				redirect(url: request.getHeader('referer'))
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = "${message(code: 'department.not.deleted.message', args: [department.code])}"
-//				redirect(action: "show", id: params.id)
+				//				redirect(action: "show", id: params.id)
 				redirect(url: request.getHeader('referer'))
 			}
 		}
 		else {
 			flash.message = "${message(code: 'department.not.found.message', args: [params.id])}"
-//			redirect(action: "list")
+			//			redirect(action: "list")
 			redirect(url: request.getHeader('referer'))
 		}
 	}
