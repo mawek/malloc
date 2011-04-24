@@ -10,7 +10,7 @@ import cz.mawek.grails.malloc.domainsupport.AllocationStatus
  * */
 class AllocationController {
 
-	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	static allowedMethods = [save: "POST", update: "POST"]
 
 	def index = {
 		redirect(action: "list", params: params)
@@ -23,20 +23,20 @@ class AllocationController {
 
 	def my = {
 		def user = User.get(params.userId)
-		
+
 		if(!user){
 			// user musim nacitat vzdy odznova lebo to hodi drzku ked chcem lazy dotiahnut teamLeadera departmentu, ktory sa zistuje pri zakladani alokacie
 			user = User.get(session.user?.id)
-		}	
+		}
 
 		def myAllocations = {
-			
-			
+
+
 			Allocation.createCriteria().list(sort:"startDate", order:"asc"){
 				and{
 					eq("worker",user)
 					'in'("status",[
-						AllocationStatus.GRANTED				
+						AllocationStatus.GRANTED
 					])
 					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
@@ -45,7 +45,7 @@ class AllocationController {
 		def myRequests = {
 			Allocation.createCriteria().list{
 				and{
-					eq("requester",user)					
+					eq("requester",user)
 					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
 				order("startDate", "asc")
@@ -57,7 +57,7 @@ class AllocationController {
 					eq("approver",user)
 					'in'("status",[
 						AllocationStatus.NEW,
-						AllocationStatus.CONSIDERING,						
+						AllocationStatus.CONSIDERING,
 					])
 					ge("startDate", (new DateTime()).withTime(0, 0, 0, 0))
 				}
@@ -79,6 +79,7 @@ class AllocationController {
 	def save = {
 		def allocation = Allocation.get(params.id)
 		def created = false
+		def oldAllocation = null
 		if (allocation) {
 			if (params.version) {
 				def version = params.version.toLong()
@@ -91,6 +92,7 @@ class AllocationController {
 					return
 				}
 			}
+			oldAllocation = new Allocation(allocation.properties)
 			allocation.properties = params
 		}else{
 			allocation = new Allocation(params)
@@ -101,12 +103,17 @@ class AllocationController {
 		if (!allocation.hasErrors() && allocation.save(flush: true)) {
 			if(created){
 				sendMail {
-					to allocation.requester?.email
-					subject "Hello to mutliple recipients"
-					body "Hello Fred! Hello Ginger!"
+					to allocation.requester?.email, allocation.worker?.email
+					subject message(code: 'allocation.mail.create.subject')
+					html g.render(template:"/email/allocation/create",model:[allocation: allocation])
 				}
 				flash.message = "${message(code: 'allocation.created.message')}"
 			}else{
+				sendMail {
+					to allocation.requester?.email, allocation.worker?.email
+					subject message(code: 'allocation.mail.update.subject')
+					html g.render(template:"/email/allocation/update",model:[oldAllocation: oldAllocation, newAllocation: allocation])
+				}
 				flash.message = "${message(code: 'allocation.updated.message')}"
 			}
 			redirect(action: "show", id: allocation.id)
@@ -124,11 +131,18 @@ class AllocationController {
 		}
 		else {
 			allocation.status = AllocationStatus.GRANTED.name()
+			
+			sendMail {
+				to allocation.requester?.email, allocation.worker?.email 
+				subject message(code: 'allocation.mailer.approve.subject')
+				html g.render(template:"/email/allocation/approve",model:[allocation: allocation])
+			}
+
 			flash.message = "${message(code: 'allocation.approved.message')}"
 			redirect(url: request.getHeader('referer'))
 		}
 	}
-	
+
 	def refuse = {
 		def allocation = Allocation.get(params.id)
 		if (!allocation) {
@@ -137,11 +151,18 @@ class AllocationController {
 		}
 		else {
 			allocation.status = AllocationStatus.REFUSED.name()
+
+			sendMail {
+				to allocation.requester.email
+				subject message(code: 'allocation.mailer.refuse.subject')
+				html g.render(template:"/email/allocation/refuse",model:[allocation: allocation])
+			}
+
 			flash.message = "${message(code: 'allocation.refused.message')}"
 			redirect(url: request.getHeader('referer'))
 		}
 	}
-	
+
 	def show = {
 		def allocation = Allocation.get(params.id)
 		if (!allocation) {
@@ -165,23 +186,30 @@ class AllocationController {
 	}
 
 	def delete = {
-		//TODO: posli mail ak si requester ale alokaciu ti zmazal niekto iny
-		def allocationInstance = Allocation.get(params.id)
-		if (allocationInstance) {
+		def allocation = Allocation.get(params.id)
+		if (allocation) {
 			try {
-				allocationInstance.delete(flush: true)
+				allocation.delete(flush: false)
+
+				// mail posielam requesterovi ak mu zmaze alokaciu niekto iny ako on sam
+				if(session.user.id != allocation.requester?.id){
+					sendMail {
+						to allocation.requester.email
+						subject message(code: 'allocation.mailer.delete.subject')
+						html g.render(template:"/email/allocation/delete",model:[allocation: allocation])
+					}
+				}
+
 				flash.message = "${message(code: 'allocation.deleted.message')}"
 				redirect(url: request.getHeader('referer'))
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = "${message(code: 'allocation.not.deleted.message')}"
-//				redirect(action: "show", id: params.id)
 				redirect(url: request.getHeader('referer'))
 			}
 		}
 		else {
 			flash.message = "${message(code: 'allocation.not.found.message', args: [params.id])}"
-//			redirect(action: "list")
 			redirect(url: request.getHeader('referer'))
 		}
 	}

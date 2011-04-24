@@ -50,7 +50,7 @@
 						</th>
 
 						<td valign="top" class="value">
-							${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
+							${message(code: 'allocation.status.'+allocation.status?.encodeAsHTML(), default: allocation.status?.encodeAsHTML())}
 						</td>
 						
 						<th valign="top" class="discussion">
@@ -58,8 +58,8 @@
 						</th>
 
 						<td valign="top" class="value">
-							<g:link controller="user" action="show" id="${allocation?.worker?.id}">
-								${allocation?.worker?.encodeAsHTML()}
+							<g:link controller="user" action="show" id="${allocation.worker?.id}">
+								${allocation.worker?.encodeAsHTML()}
 							</g:link>
 						</td>
 					</tr>
@@ -70,7 +70,7 @@
 						</th>
 
 						<td valign="top" class="value">
-							${message(code: 'allocation.type.'+allocation?.type?.encodeAsHTML(), default: allocation?.type?.encodeAsHTML())}
+							${message(code: 'allocation.type.'+allocation.type?.encodeAsHTML(), default: allocation.type?.encodeAsHTML())}
 						</td>
 						
 						<th valign="top" class="discussion">
@@ -78,8 +78,8 @@
 						</th>
 
 						<td valign="top" class="value">
-							<g:link controller="user" action="show" id="${allocation?.requester?.id}">
-								${allocation?.requester?.encodeAsHTML()}
+							<g:link controller="user" action="show" id="${allocation.requester?.id}">
+								${allocation.requester?.encodeAsHTML()}
 							</g:link>
 						</td>
 					</tr>
@@ -98,8 +98,8 @@
 						</th>
 
 						<td valign="top" class="value">
-							<g:link controller="user" action="show" id="${allocation?.approver?.id}">
-								${allocation?.approver?.encodeAsHTML()}
+							<g:link controller="user" action="show" id="${allocation.approver?.id}">
+								${allocation.approver?.encodeAsHTML()}
 							</g:link>
 						</td>
 					</tr>
@@ -127,7 +127,7 @@
 		
 		<div class="buttons">
 			<g:form>
-				<g:hiddenField name="id" value="${allocation?.id}" />
+				<g:hiddenField name="id" value="${allocation.id}" />
 				<span class="button"><g:actionSubmit class="edit" action="edit"
 						value="${message(code: 'default.button.edit.label', default: 'Edit')}" /> </span>
 				<span class="button"><g:actionSubmit class="delete" action="delete"

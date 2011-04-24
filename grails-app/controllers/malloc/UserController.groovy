@@ -89,18 +89,15 @@ class UserController {
 			try {
 				user.delete(flush: true)
 				flash.message = "${message(code: 'user.deleted.message', args: [user.name, user.surname])}"
-//				redirect(action: "list")
 				redirect(url: request.getHeader('referer'))
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = "${message(code: 'user.not.deleted.message', args: [user.name, user.surname])}"
-//				redirect(action: "list")
 				redirect(url: request.getHeader('referer'))
 			}
 		}
 		else {
 			flash.message = "${message(code: 'user.not.found.message', args: [params.id])}"
-//			redirect(action: "list")
 			redirect(url: request.getHeader('referer'))
 		}
 	}
