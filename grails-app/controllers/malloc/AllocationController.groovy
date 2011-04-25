@@ -28,7 +28,7 @@ class AllocationController {
 		def offset = params.offset ? params.offset : 0
 		
 		
-		def allocations = Allocation.withCriteria([sort:"startDate", order:"asc"]){
+		def allocations = Allocation.createCriteria().list([sort:"startDate", order:"asc", max:10, offset: filter.offset? filter.offset.toInteger():0]){
 			and{
 				if(filter['worker.id'] && !filter['worker.id'].equals('null')){
 					eq("worker.id",new Long(filter['worker.id']))
@@ -58,11 +58,7 @@ class AllocationController {
 					filter['startDateTo'] = dtt
 				}else{
 					filter['startDateTo'] = null
-				}
-				maxResults(3)
-				if(filter.offset){
-					firstResult(filter.offset.toInteger())
-				}
+				}				
 			}
 		}
 

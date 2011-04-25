@@ -181,7 +181,7 @@
 			</table>
 		</div>
 		<div class="paginateButtons">
-			<g:paginate total="${allocationTotal}" max="3"/>
+			<g:paginate total="${allocationTotal}" max="10"/>
 		</div>
 	</div>
 	<br/>

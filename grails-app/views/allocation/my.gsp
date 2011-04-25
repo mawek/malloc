@@ -76,7 +76,7 @@
 							</td>
 
 							<td>
-								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
+								<g:shortly value="${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}"/>																
 							</td>
 
 							<td>
@@ -167,7 +167,7 @@
 							</td>
 
 							<td>
-								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
+								<g:shortly value="${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}"/>
 							</td>
 
 							<td>
@@ -253,7 +253,7 @@
 							</td>
 
 							<td>
-								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
+								<g:shortly value="${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}"/>
 							</td>
 
 							<td>
