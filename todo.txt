@@ -1,5 +1,4 @@
 * security
-* allocation filter
 * pri vytvarani alokacie nasepkavac pri nazve
 * sidebar
 * kalendar ako v absente

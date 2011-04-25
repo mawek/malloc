@@ -20,8 +20,7 @@ class Allocation {
 
 
 
-	static constraints = {
-		name(blank:false)
+	static constraints = {		
 		type(nullable:false)
 		requester(nullable:true)
 		startDate(nullable:false)
