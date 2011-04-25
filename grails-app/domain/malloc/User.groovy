@@ -6,7 +6,7 @@ class User {
 		code(blank:false, size:3..3, unique:true)
 		name(blank:false)
 		surname(blank:false)
-		email(email:true, unique:true, nullable:true)
+		email(email:true, unique:true, nullable:false)
 		department(nullable:true)
 		allocations(nullable:true)
 		requests(nullable:true)

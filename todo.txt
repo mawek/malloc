@@ -1,10 +1,6 @@
-* mailer 
-* ajax - pridavanie diskusii - DONE
 * security
-* detaily POJO
 * allocation filter
 * pri vytvarani alokacie nasepkavac pri nazve
 * sidebar
-* filter
 * kalendar ako v absente
 * taglib isrefusable, is approvable

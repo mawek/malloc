@@ -17,7 +17,7 @@
 		
 		<!-- nadpis - detail oddelenia -->
 		<h1>
-			<g:message code="allocation.detail.label" />
+			<g:message code="allocation.detail.label" /> "${allocation.name}"<g:if test="${allocation.link}"> (<a href="${fieldValue(bean: allocation, field: "link")}"><g:message code="allocation.link.h.label" /></a>)</g:if>
 		</h1>
 		
 		<!-- flash spravy -->
@@ -27,19 +27,12 @@
 			</div>
 		</g:if>
 		
-		<div class="dialog">
+		<div class="dialog">		
 		
-		<h2>
-			${fieldValue(bean: allocation, field: "name")}
-			<g:if test="${allocation.link}"> 
-				(<a href="${fieldValue(bean: allocation, field: "link")}"><g:message code="allocation.link.h.label" /></a>)
-			</g:if>
-		</h2>
-		
-		<p>
-			${fieldValue(bean: allocation, field: "description")}
-		</p>
-		<br/>			
+			<p>
+				${fieldValue(bean: allocation, field: "description")}
+			</p>
+			<br/>			
 		
 			<table style="padding:5px 10px 5px  10px;">
 				<tbody>

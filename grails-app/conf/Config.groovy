@@ -119,5 +119,5 @@ grails {
 	}
  }
 
-grails.mail.disabled=false
+grails.mail.disabled=true
 grails.mail.overrideAddress="maweek@gmail.com"

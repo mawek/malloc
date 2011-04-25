@@ -7,7 +7,7 @@
 		<p>
 			Užívatel ${allocation.requester.name} ${allocation.requester.surname} si vyžádal alokaci ${allocation.hours} hodin na uživatele ${allocation.worker.name} ${allocation.worker.surname}. 
 			Datum alokace:<g:formatDate date="${allocation.startDate.toDate()}" format="dd.MM.yyyy" /> <g:if test="allocation.endDate"> - <g:formatDate date="${allocation.endDate.toDate()}" format="dd.MM.yyyy" /></g:if>   
-			<g:if test="allocation.approver">Alokaci jěště musí schválit užívatel ${allocation.approver.name} ${allocation.approver.surname}.</g:if>	
+			<g:if test="${allocation.approver}">Alokaci jěště musí schválit užívatel ${allocation.approver.name} ${allocation.approver.surname}.</g:if>	
 		</p>
 		
 		<p>Název alokace: ${allocation.name}</p>
@@ -29,7 +29,7 @@
 		</table>
 				
 		<p>			
-			<g:link absolute="true" action="show" controller="allocation" params="${[id:newAllocation.id]}"><g:message code="allocation.link"/></g:link>
+			<g:link absolute="true" action="show" controller="allocation" params="${[id:allocation.id]}"><g:message code="allocation.link"/></g:link>
 		</p>
 				
 	</body>

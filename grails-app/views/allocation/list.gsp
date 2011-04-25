@@ -11,7 +11,99 @@
 				<g:message code="allocation.new.label" />
 			</g:link> </span>
 	</div>
+	<br/>
+	
 	<div class="body">
+		<calendar:resources lang="en" theme="tiger" />
+	
+		<div class="filter">
+		
+			<g:form action="list">
+			<g:hiddenField name="filter" value="${true}" />
+				<table style="padding:5px 10px 5px  10px;">
+				<tbody>
+					<tr>
+						<th class="discussion">
+							<label for="status">
+									<g:message code="allocation.status.label" default="Status" /> 
+							</label>
+						</th>
+						<td>
+							<g:select name="status" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationStatus?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationStatus.values().collect{message(code: 'allocation.status.'+it.name())}}" value="${filter?.'status'}" noSelection="['null':'']"/>
+						</td>
+						
+						<th class="discussion">
+							<label for="worker">
+									<g:message code="allocation.worker.label" default="Worker" /> 
+							</label>
+						</th>
+						<td>
+							<g:select name="worker.id" style="width:80%;" from="${malloc.User.list()}" value="${filter?.'worker.id'}" optionKey="id" noSelection="['null': '']" />
+						</td>
+					</tr>
+					
+					<tr >
+						<th class="discussion">
+							<label for="type">
+									<g:message code="allocation.type.label" default="Type" /> 
+							</label>
+						</th>
+						<td>
+							<g:select name="type" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationType?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationType.values().collect{message(code: 'allocation.type.'+it.name())}}" value="${filter?.'type'}" noSelection="['null':'']"/>
+						</td>
+						
+						<th class="discussion">
+							<label for="requester">
+									<g:message code="allocation.requester.label" default="Requester" /> 
+							</label>
+						</th>
+						<td>
+							<g:select name="requester.id" style="width:80%;" from="${malloc.User.list()}" value="${filter?.'requester.id'}" optionKey="id" noSelection="['null': '']" />
+						</td>
+					</tr>
+					
+					<tr class="prop">
+						<th class="discussion">
+							<label for="startDateSince">
+									<g:message code="allocation.startDate.since.label" default="Start date since" /> 
+							</label>
+						</th>
+						<td>
+							<calendar:datePicker name="startDateSince" value="${filter?.startDateSince?.toDate()}" dateFormat="%d.%m.%Y" />
+						</td>
+						
+						<th class="discussion">
+							<label for="approver">
+									<g:message code="allocation.approver.label" default="Approver" /> 
+							</label>
+						</th>
+						<td>
+							<g:select name="approver.id" style="width:80%;" from="${malloc.User.list()}" value="${filter?.'approver.id'}" optionKey="id" noSelection="['null': '']" />
+						</td>
+					</tr>
+					
+					<tr class="prop">
+						<th class="discussion">
+							<label for="startDateTo">
+									<g:message code="allocation.startDate.To.label" default="Start date to" /> 
+							</label>
+						</th>
+						<td>
+							<calendar:datePicker name="startDateTo" value="${filter?.startDateTo?.toDate()}" dateFormat="%d.%m.%Y"/>
+						</td>						
+					</tr>
+				</tbody>
+				</table>			
+
+							
+			<!-- button na potvrdenie editacie/vytvorenia uzivatela -->			
+				<span class="button" style="float: right;"> 
+						<g:submitButton name="filter" class="filter" value="${message(code: 'button.filter.label', default: 'Filter')}" />				 
+				</span>
+			</g:form>		
+		</div>
+		<br/>
+	
 		<h1>
 			<g:message code="allocation.list.label" />
 		</h1>
@@ -51,7 +143,7 @@
 							</td>							
 							
 							<td>
-								${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}
+								<g:shortly value="${message(code: 'allocation.status.'+allocation?.status?.encodeAsHTML(), default: allocation?.status?.encodeAsHTML())}"/>
 							</td>
 
 							<td>

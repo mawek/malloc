@@ -80,7 +80,7 @@
 							<td valign="top" class="name">
 								<label for="status">
 									<g:message code="allocation.status.label" default="Status" /> 
-							</label>
+								</label>
 							</td>
 							
 							<td valign="top" class="value ${hasErrors(bean: allocation, field: 'status', 'errors')}">							

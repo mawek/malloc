@@ -2,7 +2,7 @@ package malloc
 
 import org.joda.time.DateTime
 
-import cz.mawek.grails.malloc.domainsupport.AllocationStatus
+import cz.mawek.grails.malloc.domainsupport.*
 
 /*
  * findWhere,... http://bears-eat-beets.blogspot.com/2010/03/implementing-findwhere-and-findallwhere.html
@@ -18,7 +18,48 @@ class AllocationController {
 
 	def list = {
 		params.max = Math.min(params.max ? params.int('max') : 50, 100)
-		[allocationList: Allocation.list(params), allocationTotal: Allocation.count()]
+
+		def filter = new HashMap()
+
+		def allocations = Allocation.withCriteria(sort:"startDate", order:"asc", max:25){			
+			and{
+				//				eq('worker',session.user)
+				if(params['filter']){
+					if(params['worker.id'] != 'null'){
+						eq("worker.id",new Long(params['worker.id']))
+						filter['worker.id']=params['worker.id']
+					}
+					if(params['approver.id'] != 'null'){
+						eq("approver.id",new Long(params['approver.id']))
+						filter['approver.id']=params['approver.id']
+					}
+					if(params['requester.id'] != 'null'){
+						eq("requester.id",new Long(params['requester.id']))
+						filter['requester.id']=params['requester.id']
+					}
+					if(params['type'] != 'null'){
+						eq("type",AllocationType.valueOf(params['type']))
+						filter['type']=params['type']
+					}
+					if(params['status'] != 'null'){
+						eq("status",AllocationStatus.valueOf(params['status']))
+						filter['status']=params['status']
+					}
+					if(params['startDateSince_year']){
+						def dts = new DateTime(new Integer(params['startDateSince_year']),new Integer(params['startDateSince_month']),new Integer(params['startDateSince_day']),0,0,0,0)
+						ge("startDate", dts)
+						filter['startDateSince']=dts
+					}
+					if(params['startDateTo_year']){
+						def dtt = new DateTime(new Integer(params['startDateTo_year']),new Integer(params['startDateTo_month']),new Integer(params['startDateTo_day']),23,59,59,0)
+						le("startDate", dtt)
+						filter['startDateTo']=dtt
+					}
+				}
+			}
+		}
+
+		[allocationList: allocations, allocationTotal:50, filter:filter]
 	}
 
 	def my = {
@@ -131,10 +172,10 @@ class AllocationController {
 		}
 		else {
 			allocation.status = AllocationStatus.GRANTED.name()
-			
+
 			sendMail {
-				to allocation.requester?.email, allocation.worker?.email 
-				subject message(code: 'allocation.mailer.approve.subject')
+				to allocation.requester?.email, allocation.worker?.email
+				subject message(code: 'allocation.mail.approve.subject')
 				html g.render(template:"/email/allocation/approve",model:[allocation: allocation])
 			}
 
@@ -154,7 +195,7 @@ class AllocationController {
 
 			sendMail {
 				to allocation.requester.email
-				subject message(code: 'allocation.mailer.refuse.subject')
+				subject message(code: 'allocation.mail.refuse.subject')
 				html g.render(template:"/email/allocation/refuse",model:[allocation: allocation])
 			}
 
@@ -195,7 +236,7 @@ class AllocationController {
 				if(session.user.id != allocation.requester?.id){
 					sendMail {
 						to allocation.requester.email
-						subject message(code: 'allocation.mailer.delete.subject')
+						subject message(code: 'allocation.mail.delete.subject')
 						html g.render(template:"/email/allocation/delete",model:[allocation: allocation])
 					}
 				}

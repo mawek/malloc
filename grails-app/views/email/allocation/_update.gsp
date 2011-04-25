@@ -29,8 +29,8 @@
 		<table>
 			<tr>
 				<th></th>
-				<th><g:message code="allocation.old"/></th>
-				<th><g:message code="allocation.new"/></th>
+				<th><g:message code="allocation.mail.old"/></th>
+				<th><g:message code="allocation.mail.new"/></th>
 			</tr>
 
 			<g:if test="${oldAllocation.name != newAllocation.name}">
