@@ -29,7 +29,7 @@
 							</label>
 						</th>
 						<td>
-							<g:select name="status" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationStatus?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationStatus.values().collect{message(code: 'allocation.status.'+it.name())}}" value="${filter?.'status'}" noSelection="['null':'']"/>
+							<g:select name="status"  keys="${cz.mawek.grails.malloc.domainsupport.AllocationStatus?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationStatus.values().collect{message(code: 'allocation.status.'+it.name())}}" value="${filter?.'status'}" noSelection="['null':'']"/>
 						</td>
 						
 						<th class="discussion">
@@ -38,7 +38,7 @@
 							</label>
 						</th>
 						<td>
-							<g:select name="worker.id" style="width:80%;" from="${malloc.User.list()}" value="${filter?.'worker.id'}" optionKey="id" noSelection="['null': '']" />
+							<g:select name="worker.id" from="${malloc.User.list()}" value="${filter?.'worker.id'}" optionKey="id" noSelection="['null': '']" />
 						</td>
 					</tr>
 					
@@ -49,7 +49,7 @@
 							</label>
 						</th>
 						<td>
-							<g:select name="type" style="width:80%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationType?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationType.values().collect{message(code: 'allocation.type.'+it.name())}}" value="${filter?.'type'}" noSelection="['null':'']"/>
+							<g:select name="type" style="width:90%;" keys="${cz.mawek.grails.malloc.domainsupport.AllocationType?.values()}" from="${cz.mawek.grails.malloc.domainsupport.AllocationType.values().collect{message(code: 'allocation.type.'+it.name())}}" value="${filter?.'type'}" noSelection="['null':'']"/>
 						</td>
 						
 						<th class="discussion">
@@ -58,7 +58,7 @@
 							</label>
 						</th>
 						<td>
-							<g:select name="requester.id" style="width:80%;" from="${malloc.User.list()}" value="${filter?.'requester.id'}" optionKey="id" noSelection="['null': '']" />
+							<g:select name="requester.id" from="${malloc.User.list()}" value="${filter?.'requester.id'}" optionKey="id" noSelection="['null': '']" />
 						</td>
 					</tr>
 					
@@ -78,7 +78,7 @@
 							</label>
 						</th>
 						<td>
-							<g:select name="approver.id" style="width:80%;" from="${malloc.User.list()}" value="${filter?.'approver.id'}" optionKey="id" noSelection="['null': '']" />
+							<g:select name="approver.id" from="${malloc.User.list()}" value="${filter?.'approver.id'}" optionKey="id" noSelection="['null': '']" />
 						</td>
 					</tr>
 					
@@ -181,7 +181,7 @@
 			</table>
 		</div>
 		<div class="paginateButtons">
-			<g:paginate total="${allocationTotal}" />
+			<g:paginate total="${allocationTotal}" max="3"/>
 		</div>
 	</div>
 	<br/>

@@ -17,49 +17,57 @@ class AllocationController {
 	}
 
 	def list = {
-		params.max = Math.min(params.max ? params.int('max') : 50, 100)
 
-		def filter = new HashMap()
-
-		def allocations = Allocation.withCriteria(sort:"startDate", order:"asc", max:25){			
+		def filter = session.allocationListFilter
+		if(!filter){
+			filter = new HashMap()
+			session.allocationListFilter = filter
+		}
+		filter.putAll(params)
+		
+		def offset = params.offset ? params.offset : 0
+		
+		
+		def allocations = Allocation.withCriteria([sort:"startDate", order:"asc"]){
 			and{
-				//				eq('worker',session.user)
-				if(params['filter']){
-					if(params['worker.id'] != 'null'){
-						eq("worker.id",new Long(params['worker.id']))
-						filter['worker.id']=params['worker.id']
-					}
-					if(params['approver.id'] != 'null'){
-						eq("approver.id",new Long(params['approver.id']))
-						filter['approver.id']=params['approver.id']
-					}
-					if(params['requester.id'] != 'null'){
-						eq("requester.id",new Long(params['requester.id']))
-						filter['requester.id']=params['requester.id']
-					}
-					if(params['type'] != 'null'){
-						eq("type",AllocationType.valueOf(params['type']))
-						filter['type']=params['type']
-					}
-					if(params['status'] != 'null'){
-						eq("status",AllocationStatus.valueOf(params['status']))
-						filter['status']=params['status']
-					}
-					if(params['startDateSince_year']){
-						def dts = new DateTime(new Integer(params['startDateSince_year']),new Integer(params['startDateSince_month']),new Integer(params['startDateSince_day']),0,0,0,0)
-						ge("startDate", dts)
-						filter['startDateSince']=dts
-					}
-					if(params['startDateTo_year']){
-						def dtt = new DateTime(new Integer(params['startDateTo_year']),new Integer(params['startDateTo_month']),new Integer(params['startDateTo_day']),23,59,59,0)
-						le("startDate", dtt)
-						filter['startDateTo']=dtt
-					}
+				if(filter['worker.id'] && !filter['worker.id'].equals('null')){
+					eq("worker.id",new Long(filter['worker.id']))
+				}
+				if(filter['approver.id'] && !filter['approver.id'].equals('null')){
+					eq("approver.id",new Long(filter['approver.id']))
+				}
+				if(filter['requester.id'] && !filter['requester.id'].equals('null')){
+					eq("requester.id",new Long(filter['requester.id']))
+				}
+				if(filter['type'] && !filter['type'].equals('null')){
+					eq("type",AllocationType.valueOf(filter['type']))
+				}
+				if(filter['status'] && !filter['status'].equals('null')){
+					eq("status",AllocationStatus.valueOf(filter['status']))
+				}
+				if(filter['startDateSince_year']){
+					def dts = new DateTime(new Integer(filter['startDateSince_year']),new Integer(filter['startDateSince_month']),new Integer(filter['startDateSince_day']),0,0,0,0)
+					ge("startDate", dts)
+					filter['startDateSince'] = dts
+				}else{
+					filter['startDateSince'] = null
+				}
+				if(filter['startDateTo_year']){
+					def dtt = new DateTime(new Integer(filter['startDateTo_year']),new Integer(filter['startDateTo_month']),new Integer(filter['startDateTo_day']),23,59,59,0)
+					le("startDate", dtt)
+					filter['startDateTo'] = dtt
+				}else{
+					filter['startDateTo'] = null
+				}
+				maxResults(3)
+				if(filter.offset){
+					firstResult(filter.offset.toInteger())
 				}
 			}
 		}
 
-		[allocationList: allocations, allocationTotal:50, filter:filter]
+
+		[allocationList: allocations, allocationTotal:allocations.totalCount, filter:filter]
 	}
 
 	def my = {
